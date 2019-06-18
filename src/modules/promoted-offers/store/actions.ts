@@ -2,13 +2,13 @@ import { ActionTree } from 'vuex'
 import RootState from '@vue-storefront/core/types/RootState'
 import PromotedOffersState from '../types/PromotedOffersState'
 import { Logger } from '@vue-storefront/core/lib/logger'
+import axios from 'axios'
 
 const actions: ActionTree<PromotedOffersState, RootState> = {
   async updatePromotedOffers ({commit, rootState}, data) {
-    let promotedBannersResource = rootState.storeView && rootState.storeView.storeCode ? `banners/${rootState.storeView.storeCode}_promoted_offers` : `promoted_offers`
     try {
-      const promotedOffersModule = await import(/* webpackChunkName: "vsf-promoted-offers-[request]" */ `theme/resource/${promotedBannersResource}.json`)
-      commit('updatePromotedOffers', promotedOffersModule)
+      const promotedOffersModule = await axios.get('http://localhost:8080/api/ext/backend-api/product')
+      commit('updatePromotedOffers', promotedOffersModule.data)
     } catch (err) {
       Logger.debug('Unable to load promotedOffers' + err)()
     }

@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="offer-container col-xs-12 col-sm-6 pb15"
-        v-for="(banner, index) in banners.mainBanners"
+        v-for="(banner, index) in banners.result[0].mainBanners"
         :key="index"
       >
         <router-link :to="localizedRoute(banner.link)">
@@ -24,7 +24,7 @@
       <div class="col-xs-12 col-sm-6">
         <div
           class="offer-container pb15"
-          v-for="(banner, index) in banners.smallBanners"
+          v-for="(banner, index) in banners.result[0].smallBanners"
           :key="index"
         >
           <router-link :to="localizedRoute(banner.link)">
@@ -44,7 +44,7 @@
     <div class="row">
       <div
         class="col-xs-12"
-        v-for="(banner, index) in banners.productBanners"
+        v-for="(banner, index) in banners.result[0].productBanners"
         :key="index"
       >
         <router-link :to="localizedRoute(banner.link)">
