@@ -12768,6 +12768,12 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-agile@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/vue-agile/-/vue-agile-1.0.10.tgz#9987c5fcceecf573fc0903d7abfa95c95060eae8"
+  dependencies:
+    vue "^2.6.10"
+
 vue-analytics@^5.16.1:
   version "5.16.1"
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.16.1.tgz#2fa909a245e1cee9993a69f0b72caf1dd6126c10"
@@ -12930,6 +12936,10 @@ vue-template-es2015-compiler@^1.6.0:
 vue@^2.5.16:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
+
+vue@^2.6.10:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
 
 vue@^2.6.6:
   version "2.6.6"
