@@ -8,6 +8,9 @@ import rootStore from '@vue-storefront/core/store'
 import { Logger } from '@vue-storefront/core/lib/logger'
 
 const mutations: MutationTree<CategoryState> = {
+  set_category_image (state, data) {
+    state.category_image = data
+  },
   [types.CATEGORY_UPD_CURRENT_CATEGORY] (state, category) {
     state.current = category
     Vue.prototype.$bus.$emit('category-after-current', { category: category })

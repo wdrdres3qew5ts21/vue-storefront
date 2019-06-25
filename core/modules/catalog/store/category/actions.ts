@@ -15,9 +15,20 @@ import SearchQuery from '@vue-storefront/core/lib/search/searchQuery'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 import { Logger } from '@vue-storefront/core/lib/logger'
 import { isServer } from '@vue-storefront/core/helpers'
+import axios from 'axios'
 
 
 const actions: ActionTree<CategoryState, RootState> = {
+  async searchCategoryImage ({commit, rootState}, data) {
+    try {
+      console.log(data)
+      const url = await axios(`http://localhost:8080/api/catalog/vue_storefront_catalog/category/_search?q=name:${data}`)
+      let img_url = `http://localhost/pub/media/catalog/category/${url.data.hits.hits[0]._source.image}`
+      commit('set_category_image', img_url) 
+    } catch {
+
+    }
+  },
   /**
    * Reset current category and path
    * @param {Object} context

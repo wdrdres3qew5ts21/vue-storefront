@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'TileLinks',
   data () {
@@ -50,6 +52,19 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentCategory: 'category/getCategoryImage'
+    })
+  },
+  mounted () {
+    this.searchCategoryImage(this.category.name)
+  },
+  methods: {
+    ...mapActions({
+      searchCategoryImage: 'category/searchCategoryImage'
+    })
   }
 }
 </script>

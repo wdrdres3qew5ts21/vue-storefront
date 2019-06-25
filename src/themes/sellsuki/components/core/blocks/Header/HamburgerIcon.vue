@@ -17,3 +17,9 @@ export default {
   mixins: [HamburgerIcon]
 }
 </script>
+
+<style lang="scss" scoped>
+  button {
+    background: none;
+  }
+</style>

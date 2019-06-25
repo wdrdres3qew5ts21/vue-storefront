@@ -50,6 +50,7 @@ import Sidebar from '../components/core/blocks/Category/Sidebar.vue'
 import ProductListing from '../components/core/ProductListing.vue'
 import Breadcrumbs from '../components/core/Breadcrumbs.vue'
 import SortBy from '../components/core/SortBy.vue'
+import { mapGetters, mapActions } from 'vuex'
 // import builder from 'bodybuilder'
 
 export default {
@@ -64,6 +65,11 @@ export default {
       mobileFilters: false
     }
   },
+  computed: {
+    ...mapGetters({
+      currentCategory: 'category/getCategoryImage'
+    })
+  },
   asyncData ({ store, route }) { // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
     return new Promise((resolve, reject) => {
       store.dispatch('category/mergeSearchOptions', { // this is just an example how can you modify the search criteria in child components
@@ -73,7 +79,13 @@ export default {
       resolve()
     })
   },
+  mounted () {
+    this.searchCategoryImage(this.category.name)
+  },
   methods: {
+    ...mapActions({
+      searchCategoryImage: 'category/searchCategoryImage'
+    }),
     openFilters () {
       this.mobileFilters = true
     },

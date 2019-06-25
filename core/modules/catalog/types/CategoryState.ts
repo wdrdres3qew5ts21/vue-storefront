@@ -9,5 +9,6 @@ export default interface CategoryState {
     routes: any
   },
   current_product_query: any,
-  current_path: any
+  current_path: any,
+  category_image: any
 }

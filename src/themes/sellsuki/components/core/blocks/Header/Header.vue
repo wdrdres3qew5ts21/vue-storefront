@@ -2,7 +2,7 @@
   <div class="header">
     <header
       class="fixed w-100 brdr-bottom-1 bg-cl-primary brdr-cl-secondary"
-      :class="{ 'is-visible': navVisible }"
+      :class="{ 'is-visible': true }"
     >
       <div class="container px15">
         <div class="row between-xs middle-xs" v-if="!isCheckoutPage">
@@ -139,10 +139,17 @@ export default {
 @import '~theme/css/helpers/functions/color';
 $color-icon-hover: color(secondary, $colors-background);
 
+.header {
+  margin-bottom: -54px;
+}
+
 header {
   height: 54px;
-  top: -55px;
+  top: 0;
+  position: fixed;
   z-index: 2;
+  background: none;
+  border: none;
   transition: top 0.2s ease-in-out;
   &.is-visible {
     top: 0;

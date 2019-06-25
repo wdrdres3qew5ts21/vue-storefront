@@ -1,48 +1,53 @@
 <template>
-  <carousel
-    :per-page="1"
-    :mouse-drag="true"
-    :autoplay="true"
-    :loop="true"
-    :autoplay-timeout="5000"
-    :speed="1000"
-    ref="carousel">
-    <slide v-for="currentImage in allImages"
-           :key="currentImage.title">
-      <section class="head-image w-100 bg-cl-th-accent cl-white">
-        <div class="container w-100 h-100 cl-black" v-lazy:background-image="currentImage.image">
-          <div class="head-image-content">
-            <h1 class="title" data-testid="mainSliderTitle">
-              {{ currentImage.title }}
-            </h1>
-            <p
-              class="subtitle mb0 serif h3"
-              data-testid="mainSliderSubtitle"
-            >
-              {{ currentImage.subtitle }}
-            </p>
+  <no-ssr>
+    <carousel
+      :per-page="1"
+      :mouse-drag="true"
+      :autoplay="true"
+      :loop="true"
+      :autoplay-timeout="5000"
+      :speed="1000"
+      ref="carousel">
+      <slide v-for="currentImage in allImages"
+             :key="currentImage.title"
+             ref="slide">
+        <section class="head-image w-100 bg-cl-th-accent cl-white">
+          <div class="container w-100 h-100 cl-black" v-lazy:background-image="currentImage.image">
+            <div class="head-image-content">
+              <h1 class="title" data-testid="mainSliderTitle">
+                {{ currentImage.title }}
+              </h1>
+              <p
+                class="subtitle mb0 serif h3"
+                data-testid="mainSliderSubtitle"
+              >
+                {{ currentImage.subtitle }}
+              </p>
             <!-- <div class="align-center inline-flex">
               <button-outline :link="currentImage.link" color="light">
                 {{ currentImage.button_text }}
               </button-outline>
             </div> -->
+            </div>
           </div>
-        </div>
-      </section>
-    </slide>
-  </carousel>
+        </section>
+      </slide>
+    </carousel>
+  </no-ssr>
 </template>
 
 <script>
 import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import { mapGetters } from 'vuex'
 import { Carousel, Slide } from 'vue-carousel'
+import NoSSR from 'vue-no-ssr'
 
 export default {
   components: {
     ButtonOutline,
     Carousel,
-    Slide
+    Slide,
+    'no-ssr': NoSSR
   },
   data () {
     return {

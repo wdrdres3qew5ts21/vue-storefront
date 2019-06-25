@@ -18,7 +18,8 @@ export const categoryModule: Module<CategoryState, RootState> = {
       routes: []
     },
     current_product_query: null,
-    current_path: [] // list of categories from root to current
+    current_path: [], // list of categories from root to current
+    category_image: ""
   },
   getters,
   actions,
