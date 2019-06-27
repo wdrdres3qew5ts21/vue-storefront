@@ -1,7 +1,3 @@
-root@da468fca8cc7:/opt/bitnami/magento/htdocs# cat composer.json
-
-
-
 {
   "server": {
     "host": "localhost",
