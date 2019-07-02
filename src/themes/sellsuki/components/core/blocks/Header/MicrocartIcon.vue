@@ -6,7 +6,7 @@
     data-testid="openMicrocart"
     :aria-label="$t('Open microcart')"
   >
-    <font-awesome-icon icon="shopping-bag" size="2x"/>
+    <font-awesome-icon icon="shopping-bag" size="2x" style="color: #404040;"/>
   </button>
 </template>
 

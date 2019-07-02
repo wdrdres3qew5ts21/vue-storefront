@@ -158,11 +158,9 @@ $color-icon-hover: color(secondary, $colors-background);
 }
 
 .icon {
-  opacity: 0.6;
   &:hover,
   &:focus {
     background-color: $color-icon-hover;
-    opacity: 1;
   }
 }
 .right-icons {

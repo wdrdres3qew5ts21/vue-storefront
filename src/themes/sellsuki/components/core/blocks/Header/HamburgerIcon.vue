@@ -6,7 +6,7 @@
     :aria-label="$t('Open menu')"
     data-testid="menuButton"
   >
-    <font-awesome-icon icon="bars" size="2x"/>
+    <font-awesome-icon icon="bars" size="2x" style="color: #404040;"/>
   </button>
 </template>
 

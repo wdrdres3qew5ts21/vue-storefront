@@ -6,7 +6,7 @@
     @click="toggleSearchpanel"
     data-testid="openSearchPanel"
   >
-    <font-awesome-icon icon="search" size="2x"/>
+    <font-awesome-icon icon="search" size="2x" style="color: #404040;"/>
   </button>
 </template>
 
