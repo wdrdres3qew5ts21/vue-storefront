@@ -1,11 +1,8 @@
 <template>
   <router-link :to="localizedRoute('/')" :title="$t('Home Page')" class="no-underline inline-flex">
-    <img
-      :width="width"
-      :height="height"
-      src="/assets/logo.svg"
-      alt="Vuestore logo"
-    >
+    <p>
+      Monolithe.
+    </p>
   </router-link>
 </template>
 
@@ -23,3 +20,19 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+
+  p {
+    margin: 0;
+
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+
+    color: #404040;
+  }
+</style>

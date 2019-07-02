@@ -115,7 +115,7 @@
         <div class="col-xs-5 col-sm-3 cl-tertiary">
           <language-switcher v-if="multistoreEnabled" />
         </div>
-        <div class="col-xs col-sm-9 end-xs">
+        <!-- <div class="col-xs col-sm-9 end-xs">
           <ul class="pl0 links" data-testid="bottomLinks">
             <li class="footer__version-info"> {{ getVersionInfo }} </li>
             <li class="inline-flex">
@@ -137,6 +137,12 @@
               </router-link>
             </li>
           </ul>
+        </div> -->
+        <div class="privacy">
+          <div class="empty-div"/>
+          <span>
+            PRIVACY POLICTY | LEGAL NOTICE <!--Padding is optional-->
+          </span>
         </div>
       </div>
     </div>
@@ -167,6 +173,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-secondary: color(secondary);
@@ -249,5 +256,41 @@ $color-secondary: color(secondary);
   .footer-links {
     padding-bottom: 30px;
   }
+}
+
+.footer-links {
+  padding: 2% 0 8% 0;
+}
+
+svg {
+  fill: #404040;
+}
+
+.empty-div {
+  height: 58% !important;
+}
+
+.privacy {
+  width: 100%;
+  height: 30px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+  text-align: center;
+  margin: 0 7% 7% 7%;
+}
+
+span {
+  font-family: Nunito Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  color: #404040;
+
+  background-color: white;
+  padding: 0 10px;
 }
 </style>

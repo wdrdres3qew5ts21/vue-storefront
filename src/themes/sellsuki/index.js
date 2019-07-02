@@ -6,10 +6,17 @@ import VueProgressBar from 'vue-progressbar'
 import '@vue-storefront/core/lib/passive-listeners'
 import { RouterManager } from '@vue-storefront/core/lib/router-manager'
 import { once } from '@vue-storefront/core/helpers'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faShoppingBag, faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 once('__VUE_EXTEND_DROPPOINT_VPB__', () => {
   Vue.use(VueProgressBar)
 })
+
+library.add(faShoppingBag, faSearch, faBars)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const themeEntry = App
 function initTheme (app, router, store, config, ssrContext) {
