@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
+    <header class="modal-header py25 px65">
       <i
         slot="close"
         class="modal-close material-icons p15 cl-bg-tertiary"
@@ -21,52 +21,50 @@
           v-model="email"
           @blur="$v.email.$touch()"
           focus
-          :placeholder="$t('E-mail address *')"
+          :placeholder="$t('E-mail Address *')"
           :validations="[
             {
               condition: !$v.email.required && $v.email.$error,
-              text: $t('Field is required.')
+              text: $t('E-mail Address is required.')
             },
             {
               condition: !$v.email.email && $v.email.$error,
-              text: $t('Please provide valid e-mail address.')
+              text: $t('Please provide valid E-mail Address.')
             }
           ]"
         />
-        <div class="row mb10">
-          <base-input
-            class="col-xs-6"
-            type="text"
-            name="fist-name"
-            autocomplete="given-name"
-            v-model="firstName"
-            @blur="$v.firstName.$touch()"
-            :placeholder="$t('First name *')"
-            :validations="[
-              {
-                condition: !$v.firstName.required && $v.firstName.$error,
-                text: $t('Field is required.')
-              },
-              {
-                condition: !$v.firstName.minLength,
-                text: $t('Name must have at least 2 letters.')
-              }
-            ]"
-          />
-          <base-input
-            class="col-xs-6"
-            type="text"
-            name="last-name"
-            autocomplete="last-name"
-            v-model="lastName"
-            @blur="$v.lastName.$touch()"
-            :placeholder="$t('Last name *')"
-            :validations="[{
-              condition: !$v.lastName.required && $v.lastName.$error,
-              text: $t('Field is required.')
-            }]"
-          />
-        </div>
+        <base-input
+          class="mb10"
+          type="text"
+          name="fist-name"
+          autocomplete="given-name"
+          v-model="firstName"
+          @blur="$v.firstName.$touch()"
+          :placeholder="$t('First Name *')"
+          :validations="[
+            {
+              condition: !$v.firstName.required && $v.firstName.$error,
+              text: $t('First Name is required.')
+            },
+            {
+              condition: !$v.firstName.minLength,
+              text: $t('Name must have at least 2 letters.')
+            }
+          ]"
+        />
+        <base-input
+          class="mb10"
+          type="text"
+          name="last-name"
+          autocomplete="last-name"
+          v-model="lastName"
+          @blur="$v.lastName.$touch()"
+          :placeholder="$t('Last Name *')"
+          :validations="[{
+            condition: !$v.lastName.required && $v.lastName.$error,
+            text: $t('Last Name is required.')
+          }]"
+        />
         <base-input
           class="mb10"
           type="password"
@@ -79,7 +77,7 @@
           :validations="[
             {
               condition: !$v.password.required && $v.password.$error,
-              text: $t('Field is required.')
+              text: $t('Password is required.')
             },
             {
               condition: !$v.password.minLength && $v.password.$error,
@@ -88,7 +86,7 @@
           ]"
         />
         <base-input
-          class="mb10"
+          class="mb25"
           type="password"
           name="password-confirm"
           autocomplete="new-password"
@@ -98,7 +96,7 @@
           :validations="[
             {
               condition: !$v.rPassword.required && $v.rPassword.$error,
-              text: $t('Field is required.')
+              text: $t('Repeat password is required.')
             },
             {
               condition: !$v.rPassword.sameAsPassword && $v.rPassword.$error,
@@ -120,16 +118,18 @@
         >
           {{ $t('I accept terms and conditions') }} *
         </base-checkbox>
-        <button-full class="mb20" type="submit">
-          {{ $t('Register an account') }}
+        <button-full class="mb25" type="submit">
+          <div class="text-btn">{{ $t('Register') }}</div>
         </button-full>
-        <div class="center-xs">
-          <span>
-            {{ $t('or') }}
-            <a href="#" @click.prevent="switchElem">
-              {{ $t('login to your account') }}
+        <div class="row">
+          <div class="col-xs-8">
+            {{ $t('Already have an account?') }}
+          </div>
+          <div class="col-xs-4 end-xs">
+            <a class="secondary" href="#" @click.prevent="switchElem">
+              {{ $t('Login') }}
             </a>
-          </span>
+          </div>
         </div>
       </form>
     </div>
@@ -205,10 +205,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .modal-content {
-    @media (max-width: 400px) {
-      padding-left: 20px;
-      padding-right: 20px;
+  div {
+    font-family: 'Nunito Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #404040;
+  }
+  .modal-header {
+    @media (max-width: 414px) {
+      padding: 50px 33px 0px 33px;
+      font-weight: 800;
+      font-size: 25px;
+      line-height: 34px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
+  }
+  .modal-content {
+    @media (max-width: 414px) {
+      padding: 50px 33px 0px 33px;
+    }
+  }
+  .secondary {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+  .text-btn {
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #EEEEEE
   }
 </style>

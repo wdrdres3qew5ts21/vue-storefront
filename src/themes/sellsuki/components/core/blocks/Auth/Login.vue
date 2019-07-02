@@ -2,7 +2,7 @@
   <div>
     <header class="modal-header">
       <i slot="close" class="modal-close material-icons p15 cl-bg-tertiary" @click="close">close</i>
-      {{ $t('LOGIN') }}
+      {{ $t('Login') }}
     </header>
     <div class="modal-content pt30 pb50 px65 cl-secondary">
       <form @submit.prevent="login" novalidate>
@@ -146,6 +146,7 @@ export default {
       font-size: 25px;
       line-height: 34px;
       letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
   }
   .modal-content {
