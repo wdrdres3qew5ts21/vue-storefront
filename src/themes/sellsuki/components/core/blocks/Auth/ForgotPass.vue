@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
+    <header class="modal-header py25 px65">
       <i
         slot="close"
         class="modal-close material-icons p15 cl-bg-tertiary"
@@ -14,8 +14,8 @@
     <div class="modal-content pt30 pb60 px65 cl-secondary">
       <template v-if="!passwordSent">
         <form @submit.prevent="sendEmail" novalidate>
-          <div class="mb20">
-            <p class="mb45">
+          <div class="mb30">
+            <p class="mb45" style="font-size: 16px">
               {{ $t('Enter your email to receive instructions on how to reset your password.') }}
             </p>
             <base-input
@@ -23,37 +23,37 @@
               name="email"
               v-model="email"
               focus
-              :placeholder="$t('E-mail address *')"
+              :placeholder="$t('E-mail Address *')"
               :validations="[
                 {
                   condition: !$v.email.required && $v.email.$error,
-                  text: $t('Field is required.')
+                  text: $t('E-mail Address is required.')
                 },
                 {
                   condition: !$v.email.email && $v.email.$error,
-                  text: $t('Please provide valid e-mail address.')
+                  text: $t('Please provide valid E-mail Address.')
                 }
               ]"
             />
           </div>
-          <button-full class="mb35" type="submit">
-            {{ $t('Reset password') }}
+          <button-full class="mt10 mb35" type="submit">
+            <div class="text-btn">{{ $t('Reset password') }}</div>
           </button-full>
-          <div class="center-xs">
-            {{ $t('or') }}
-            <a href="#" @click.prevent="switchElem">
-              {{ $t('return to log in') }}
+          <div class="center-xs" style="text-transform: uppercase;">
+            {{ $t('Return to ') }}
+            <a href="#" class="secondary" @click.prevent="switchElem">
+              {{ $t('log in') }}
             </a>
           </div>
         </form>
       </template>
       <template v-if="passwordSent">
         <form class="py20">
-          <p class="py30 mb80">
+          <p class="py30 mb80" style="font-size: 16px;">
             {{ $t("We've sent password reset instructions to your email. Check your inbox and follow the link.") }}
           </p>
-          <button-full class="mb35" type="submit">
-            {{ $t('Back to login') }}
+          <button-full class="mb35 secondary" type="submit">
+            {{ $t('Home') }}
           </button-full>
         </form>
       </template>
@@ -128,10 +128,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .modal-content {
-    @media (max-width: 400px) {
-      padding-left: 20px;
-      padding-right: 20px;
+  div {
+    font-family: 'Nunito Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #404040;
+  }
+  .modal-header {
+    @media (max-width: 414px) {
+      padding: 50px 33px 0px 33px;
+      font-weight: 800;
+      font-size: 25px;
+      line-height: 34px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
+  }
+  .modal-content {
+    @media (max-width: 414px) {
+      padding: 100px 33px 0px 33px;
+    }
+  }
+  .secondary {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+  }
+  .text-btn {
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #EEEEEE
   }
 </style>
