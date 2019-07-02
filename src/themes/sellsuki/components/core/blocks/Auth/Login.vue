@@ -1,7 +1,7 @@
 <template>
   <div>
-    <i slot="close" class="modal-close material-icons p15 cl-bg-tertiary" @click="close">close</i>
     <header class="modal-header">
+      <i slot="close" class="modal-close material-icons p15 cl-bg-tertiary" @click="close">close</i>
       {{ $t('LOGIN') }}
     </header>
     <div class="modal-content pt30 pb50 px65 cl-secondary">
