@@ -9,7 +9,7 @@
       <div class="modal-wrapper">
         <div class="modal-center">
           <div class="modal-container bg-cl-primary" ref="modal-content" :style="style">
-            <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary" v-if="$slots.header">
+            <header class="modal-header py25 px65 h1 serif weight-700" v-if="$slots.header">
               <i
                 slot="close"
                 class="modal-close material-icons p15 cl-bg-tertiary"
@@ -154,6 +154,10 @@ $z-index-modal: map-get($z-index, modal);
 
     @media (max-width: 600px) {
       padding: 25px 20px;
+    }
+
+    @media (max-width: 414px) {
+      padding: 15% 5% 15% 5%;
     }
   }
 

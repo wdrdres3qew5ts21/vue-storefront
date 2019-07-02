@@ -62,7 +62,6 @@ export default {
 </script>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
   @media (max-width: 1023px) {
     .newsletter-button {

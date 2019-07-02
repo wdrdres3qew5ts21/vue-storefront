@@ -1,13 +1,13 @@
 <template>
   <modal name="modal-newsletter" :width="450">
     <p slot="header">
-      {{ $t('Newsletter') }}
+      NEWSLETTER
     </p>
     <div slot="content">
       <form @submit.prevent="submit(onSuccesfulSubmission)" novalidate>
         <div class="mb10">
           <p class="h4">
-            {{ $t('Sign up to our newsletter and receive a coupon for 10% off!') }}
+            Subscribe to our Newsletter and we will send you information about our new products and trends
           </p>
           <base-input
             focus
@@ -77,3 +77,37 @@ export default {
   ]
 }
 </script>
+
+<style lang="scss" scoped>
+  p, button{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    color: #404040;
+  }
+
+  .modal-header p {
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 34px;
+    padding-left: 4%;
+  }
+
+  .h4 {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  button {
+    color: #EEEEEE;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.25em;
+  }
+
+  form {
+    padding: 0 4%;
+  }
+</style>

@@ -173,7 +173,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-secondary: color(secondary);
