@@ -141,20 +141,27 @@ $color-icon-hover: color(secondary, $colors-background);
 
 .header {
   margin-bottom: -54px;
-}
+  @media (max-width: 767px) {
+    margin-bottom: 0;
+  }
 
-header {
-  height: 54px;
-  top: 0;
-  position: fixed;
-  z-index: 2;
-  background: none;
-  border: none;
-  transition: top 0.2s ease-in-out;
-  &.is-visible {
+  header {
+    height: 54px;
     top: 0;
+    position: fixed;
+    z-index: 2;
+    background: none;
+    border: none;
+    transition: top 0.2s ease-in-out;
+    &.is-visible {
+      top: 0;
+    }
+    @media (max-width: 767px) {
+      background: white;
+    }
   }
 }
+
 .icon {
   opacity: 0.6;
   &:hover,

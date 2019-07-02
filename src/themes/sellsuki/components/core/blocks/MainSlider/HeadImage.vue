@@ -4,47 +4,41 @@
       :per-page="1"
       :mouse-drag="true"
       :autoplay="true"
+      :pagination-enabled="false"
       :loop="true"
       :autoplay-timeout="5000"
-      :speed="1000"
+      :speed="1500"
       ref="carousel">
       <slide v-for="currentImage in allImages"
              :key="currentImage.title"
-             ref="slide">
-        <section class="head-image w-100 bg-cl-th-accent cl-white">
-          <div class="container w-100 h-100 cl-black" v-lazy:background-image="currentImage.image">
-            <div class="head-image-content">
-              <h1 class="title" data-testid="mainSliderTitle">
-                {{ currentImage.title }}
-              </h1>
-              <p
-                class="subtitle mb0 serif h3"
-                data-testid="mainSliderSubtitle"
-              >
-                {{ currentImage.subtitle }}
-              </p>
-            <!-- <div class="align-center inline-flex">
-              <button-outline :link="currentImage.link" color="light">
-                {{ currentImage.button_text }}
-              </button-outline>
-            </div> -->
-            </div>
+             ref="slide"
+             class="slide">
+        <a class="head-image w-100" href="">
+          <img class="carousel-image" src="../../../../assets/banner.jpg" alt="">
+          <div class="head-image-content">
+            <p class="title" data-testid="mainSliderTitle">
+              {{ currentImage.title }}
+            </p>
+            <p
+              class="subtitle mb0"
+              data-testid="mainSliderSubtitle"
+            >
+              {{ currentImage.subtitle }}
+            </p>
           </div>
-        </section>
+        </a>
       </slide>
     </carousel>
   </no-ssr>
 </template>
 
 <script>
-import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import { mapGetters } from 'vuex'
 import { Carousel, Slide } from 'vue-carousel'
 import NoSSR from 'vue-no-ssr'
 
 export default {
   components: {
-    ButtonOutline,
     Carousel,
     Slide,
     'no-ssr': NoSSR
@@ -62,75 +56,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.head-image {
-  display: none;
-  @media (min-width: 767px) {
-    display: inherit;
-  }
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-  .head-image-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 15%;
-
-    .title {
-      font-size: 3.4rem;
-      margin-bottom: 0;
-    }
-
-    .subtitle {
-      font-size: 0.8rem;
-      max-width: 340px;
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.2rem;
-    }
-  }
+.carousel-image {
+  width: 100%;
+  padding: 0;
+  display: block;
 }
 
-.head-image {
-  height: 640px;
+.head-image-content {
+  transition: unset !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.container {
-  background-size: cover;
-  background-position: bottom center;
-  background-repeat: no-repeat;
+
+.title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  line-height: 41px;
+  white-space: nowrap;
+  color: #EEEEEE;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.75);
 }
-.row {
-  height: 640px;
+
+.subtitle{
+  font-family: 'Nunito Sans', sans-serif;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  color: #EEEEEE;
 }
-@media (max-width: 75em) {
-  .head-image {
-    height: 400px;
-  }
-  .title {
-    font-size: 50px;
-  }
-  .subtitle {
-    font-size: 20px;
-  }
-  .row {
-    height: 400px;
+
+a {
+  text-decoration: none;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
   }
 }
-@media (max-width: 64em) {
-  .head-image {
-    height: 359px;
-  }
-  .container {
-    background-position: left;
-  }
-  .title {
-    font-size: 48px;
-  }
-  .subtitle {
-    font-size: 18px;
-  }
-  .button {
-    font-size: 16px;
-  }
-  .row {
-    height: 359px;
-  }
+
+a.underline:after, a:not(.no-underline):hover:after {
+  position: unset;
 }
 </style>

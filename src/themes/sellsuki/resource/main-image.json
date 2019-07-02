@@ -1,15 +1,15 @@
 {
   "images": [
     {
-      "title": "Walk the walk.",
-      "subtitle": "A fashion can become the prevailing style in behaviour or manifest the newest creations of designers, technologists, engineers, and design managers.",
-      "image": "/assets/full_width_banner.jpg",
+      "title": "NEW COLLECTION",
+      "subtitle": "ONLINE AND IN STORES",
+      "image": "https://static.zara.net/photos//mkt/spots/ss19-sales/home-man//desktop-imgmansalesd.st.jpg?ts=156078751921",
       "link": "/c/women-20"
     },
     {
-      "title": "Walk the walk.123",
-      "subtitle": "A fashion can become the prevailing style in behaviour or manifest the newest creations of designers, technologists, engineers, and design managers.",
-      "image": "/assets/full_width_banner.jpg",
+      "title": "OLD COLLECTION",
+      "subtitle": "ONLINE AND IN STORES",
+      "image": "https://static.zara.net/photos//mkt/spots/ss19-sales/home-woman//desktop-imgsaleswomand.st.jpg?ts=1560846071212",
       "link": "/c/women-20"
     } 
   ]

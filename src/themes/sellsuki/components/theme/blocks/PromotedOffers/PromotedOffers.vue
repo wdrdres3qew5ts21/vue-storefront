@@ -1,75 +1,38 @@
 <template>
-  <section v-if="!singleBanner" class="offers container my30 px15 cl-black">
-    <div class="row">
-      <div
-        class="offer-container col-xs-12 col-sm-6 pb15"
-        v-for="(banner, index) in banners.result[0].mainBanners"
-        :key="index"
-      >
-        <router-link :to="localizedRoute(banner.link)">
-          <div
-            class="offer"
-            v-lazy:background-image="banner.image"
-          >
-            <h2 class="title m0 h1">
-              {{ banner.title }}
-            </h2>
-            <p class="subtitle m0 serif h3 uppercase">
-              {{ banner.subtitle }}
-            </p>
-          </div>
-        </router-link>
-      </div>
-
-      <div class="col-xs-12 col-sm-6">
-        <div
-          class="offer-container pb15"
-          v-for="(banner, index) in banners.result[0].smallBanners"
-          :key="index"
-        >
-          <router-link :to="localizedRoute(banner.link)">
-            <div
-              class="offer offer-small border-box p5 flex bg-cl-th-accent"
-              v-lazy:background-image="banner.image"
-            >
-              <h2 class="title m0 h1">{{ banner.title }}</h2>
-              <p class="subtitle m0 serif h3 uppercase">{{ banner.subtitle }}</p>
-            </div>
-          </router-link>
-        </div>
-      </div>
+  <div class="slideshow">
+    <div class="slideshow__container js-slideshow">
+      <img
+        v-for="(slide, index) in slides.result[0].banners"
+        :key="slide.id"
+        :src="slide.image"
+        :alt="slide.title"
+        :class="{ active: isActive(index) }"
+        @mouseover="stopRotation"
+        @mouseout="startRotation"
+        @click="changeRoute(slide.link)">
+      <p class="title">NEW COLLECTIONS</p>
     </div>
-  </section>
-  <section v-else class="container my30 px15">
-    <div class="row">
-      <div
-        class="col-xs-12"
-        v-for="(banner, index) in banners.result[0].productBanners"
-        :key="index"
-      >
-        <router-link :to="localizedRoute(banner.link)">
-          <div
-            class="offer offer-product border-box p5 flex bg-cl-th-accent"
-            v-lazy:background-image="banner.image"
-          >
-            <h2 class="title m0 h1">
-              {{ banner.title }}
-            </h2>
-            <p class="subtitle m0 serif h3 uppercase">
-              {{ banner.subtitle }}
-            </p>
-          </div>
-        </router-link>
-      </div>
-    </div>
-  </section>
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
+import { Carousel, Slide } from 'vue-carousel'
+import NoSSR from 'vue-no-ssr'
 export default {
   name: 'PromotedOffers',
+  components: {
+    Carousel,
+    Slide,
+    'no-ssr': NoSSR
+  },
+  data () {
+    return {
+      current: 0,
+      speed: 3000,
+      timer: null
+    }
+  },
   props: {
     singleBanner: {
       type: Boolean,
@@ -79,7 +42,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      banners: 'promoted/getPromotedOffers'
+      slides: 'promoted/getPromotedOffers'
     })
   },
   async created () {
@@ -88,77 +51,113 @@ export default {
   methods: {
     ...mapActions({
       updatePromotedOffers: 'promoted/updatePromotedOffers'
-    })
+    }),
+    startRotation: function () {
+      this.timer = setInterval(this.next, this.speed)
+    },
+    stopRotation: function () {
+      clearTimeout(this.timer)
+      this.timer = null
+    },
+    next: function () {
+      var current = this.current
+      var next = current + 1
+
+      if (next > this.slides.result[0].banners.length - 1) {
+        next = 0
+      }
+      this.current = next
+      this.setActive(this.current)
+    },
+    prev: function () {
+      var current = this.current
+      var prev = current - 1
+
+      if (prev < 0) {
+        prev = this.slides.result[0].banners.length - 1
+      }
+
+      this.current = prev
+      this.setActive(this.current)
+    },
+    isActive: function (slide) {
+      return this.current === slide
+    },
+    setActive: function (slide) {
+      this.current = slide
+    },
+    changeRoute: function (link) {
+      this.$router.replace({ path: link })
+    }
+  },
+  mounted () {
+    this.startRotation()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .offer-container {
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
-  .offer {
-    height: 735px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 1;
-    transition: 0.3s all;
+  @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-    &:hover {
-      opacity: 0.9;
-    }
-
-    @media (max-width: 767px) {
-      height: 200px;
-    }
-
-    .title {
-      text-align: center;
-      margin-top: 2rem;
-      @media (max-width: 767px) {
-        background-color: rgba(255,255,255,0.4);
-        padding: 0.5rem;
-        line-height: 2.4rem;
-      }
-    }
-
-    .subtitle {
-      font-family: 'Roboto', sans-serif;
-      @media (max-width: 767px) {
-        background-color: rgba(255,255,255,0.4);
-        padding: 0.5rem;
-      }
-    }
-  }
-  .offer-small {
-    height: 360px;
-
-    @media (max-width: 767px) {
-      height: 200px;
-    }
-  }
-  .offer-product {
-    height: 330px;
-    background-position: 50% 20%;
-
-    @media (max-width: 767px) {
-      height: 330px;
-    }
-  }
   .title {
-    @media (max-width: 767px) {
-      font-size: 36px;
-    }
+    text-transform: uppercase;
+    font-family: 'Nunito Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 34px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #EEEEEE;
+    transition: unset !important;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    margin: 0;
   }
-  .subtitle {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
+
+  /* Base styling ----- */
+  body {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Slideshow styling ----- */
+  .slideshow__container {
+    overflow: hidden;
+    position: relative;
+    padding-top: 66.64%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
+
+  a {
+    display: block;
+  }
+
+  .active {
+    opacity: 1;
   }
 </style>

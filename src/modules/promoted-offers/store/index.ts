@@ -9,9 +9,7 @@ export const module: Module<PromotedOffersState, RootState> = {
   namespaced: true,
   state: {
     banners: {
-      mainBanners: [],
-      smallBanners: [],
-      productBanners: []
+      banners: []
     },
     headImage: null
   },

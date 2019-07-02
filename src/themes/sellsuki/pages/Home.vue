@@ -1,29 +1,16 @@
 <template>
   <div id="home">
-    <head-image />
+    <head-image/>
 
     <promoted-offers/>
 
-    <section class="new-collection container px15">
-      <div>
-        <header class="col-md-12">
-          <h2 class="align-center cl-accent">{{ $t('Everything new') }}</h2>
-        </header>
-      </div>
+    <category-listing/>
+
+    <!-- <section class="new-collection container px15">
       <div class="row center-xs">
         <product-listing columns="4" :products="everythingNewCollection" />
       </div>
-    </section>
-
-    <section class="container pb60 px15">
-      <div class="row center-xs">
-        <header class="col-md-12 pt40">
-          <h2 class="align-center cl-accent">{{ $t('Get inspired') }}</h2>
-        </header>
-      </div>
-      <tile-links />
-    </section>
-    <Onboard/>
+    </section> -->
   </div>
 </template>
 
@@ -38,6 +25,7 @@ import Home from '@vue-storefront/core/pages/Home'
 // Theme core components
 import ProductListing from 'theme/components/core/ProductListing'
 import HeadImage from 'theme/components/core/blocks/MainSlider/HeadImage'
+import CategoryListing from 'theme/components/core/blocks/Category/CategoryListing'
 
 // Theme local components
 import Onboard from 'theme/components/theme/blocks/Home/Onboard'
@@ -51,7 +39,8 @@ export default {
     Onboard,
     ProductListing,
     PromotedOffers,
-    TileLinks
+    TileLinks,
+    CategoryListing
   },
   computed: {
     categories () {

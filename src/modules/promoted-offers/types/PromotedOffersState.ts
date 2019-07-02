@@ -1,9 +1,5 @@
 export default interface PromotedOffersState {
-  banners: {
-    mainBanners: any[],
-    smallBanners: any[],
-    productBanners: any[]
-  },
+  banners: any,
   headImage: {
     images: any[]
   }
