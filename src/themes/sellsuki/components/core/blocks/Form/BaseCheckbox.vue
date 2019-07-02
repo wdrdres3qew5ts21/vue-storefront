@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative">
+    <div class="relative mb15">
       <input
         class="m0 no-outline"
         type="checkbox"
@@ -13,7 +13,7 @@
         :disabled="disabled"
       >
       <label
-        class="pl35 lh30 h4 pointer"
+        class="pl35 lh30 pointer"
         :for="id"
       >
         <slot/>
@@ -56,9 +56,11 @@ export default {
 <style lang="scss" scoped>
   @import '~theme/css/variables/colors';
   @import '~theme/css/helpers/functions/color';
-  $color-silver: color(silver);
+  $color-silver: #C4C4C4;
+  $color-grey: #EEEEEE;
   $color-active: color(secondary);
   $color-white: color(white);
+  $color-black: #404040;
 
   label {
     user-select: none;
@@ -67,9 +69,9 @@ export default {
       position: absolute;
       top: 3px;
       left: 0;
-      width: 22px;
-      height: 22px;
-      background-color: $color-white;
+      width: 20px;
+      height: 20px;
+      background-color: $color-grey;
       border: 1px solid $color-silver;
       cursor: pointer;
     }
@@ -82,7 +84,7 @@ export default {
     opacity: 0;
     &:checked + label {
       &:before {
-        background-color: $color-silver;
+        background-color: $color-grey;
         border-color: $color-silver;
         cursor: pointer;
       }
@@ -93,10 +95,10 @@ export default {
         left: 5px;
         width: 11px;
         height: 5px;
-        border: 3px solid $color-white;
+        border: 3px solid $color-black;
         border-top: none;
         border-right: none;
-        background-color: $color-silver;
+        background-color: $color-grey;
         transform: rotate(-45deg);
       }
     }
@@ -104,7 +106,7 @@ export default {
     &:focus {
       + label {
         &:before {
-          border-color: $color-active;
+          border-color: $color-silver;
         }
       }
     }
