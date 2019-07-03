@@ -135,7 +135,6 @@ export default {
 
   .base-input {
     min-height: 4.5rem;
-    padding-top: 10px;
   }
 
   input {

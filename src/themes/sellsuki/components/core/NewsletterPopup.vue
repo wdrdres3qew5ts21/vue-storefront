@@ -6,7 +6,7 @@
     <div slot="content">
       <form @submit.prevent="submit(onSuccesfulSubmission)" novalidate>
         <div class="mb10">
-          <p class="h4">
+          <p class="subscribe">
             Subscribe to our Newsletter and we will send you information about our new products and trends
           </p>
           <base-input
@@ -19,7 +19,7 @@
             :validations="[
               {
                 condition: $v.email.$error && !$v.email.required,
-                text: $t('Field is required.')
+                text: 'E-mail Address is required.'
               },
               {
                 condition: !$v.email.email && $v.email.$error,
@@ -31,7 +31,6 @@
         <button-full
           class="mb35"
           type="submit"
-          :disabled="this.$v.$invalid"
           @click.native="$v.email.$touch"
         >
           {{ $t('Subscribe') }}
@@ -92,10 +91,11 @@ export default {
     padding-left: 4%;
   }
 
-  .h4 {
+  .subscribe {
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
+    padding-bottom: 10%;
   }
 
   button {
@@ -105,6 +105,7 @@ export default {
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.25em;
+    margin-top: 7%;
   }
 
   form {

@@ -11,7 +11,7 @@
           class="w-100 inline-flex end-xs bg-cl-transparent brdr-none p0 close-btn"
           @click="closeMenu"
         >
-          <i class="material-icons p15">close</i>
+          <font-awesome-icon class="p15" icon="times" size="lg" style="color: #C5C5C5;"/>
         </button>
       </div>
     </div>
@@ -25,6 +25,24 @@
               exact
             >
               {{ $t('Home') }}
+            </router-link>
+          </li>
+          <li @click="closeMenu" v-if="isCurrentMenuShowed" class="bg-cl-secondary">
+            <router-link
+              class="block px25 py20 brdr-bottom-1 brdr-cl-bg-secondary cl-accent no-underline fs-medium-small"
+              :to="localizedRoute('/sale')"
+              exact
+            >
+              SALES
+            </router-link>
+          </li>
+          <li @click="closeMenu" v-if="isCurrentMenuShowed" class="bg-cl-secondary">
+            <router-link
+              class="block px25 py20 brdr-bottom-1 brdr-cl-bg-secondary cl-accent no-underline fs-medium-small"
+              :to="localizedRoute('')"
+              exact
+            >
+              NEW COLLECTION
             </router-link>
           </li>
           <li
@@ -56,57 +74,38 @@
               :parent-path="category.url_path"
             />
           </li>
-          <li @click="closeMenu" v-if="isCurrentMenuShowed" class="bg-cl-secondary">
-            <router-link
-              class="block px25 py20 brdr-bottom-1 brdr-cl-secondary cl-accent no-underline fs-medium-small"
-              :to="localizedRoute('/sale')"
-              exact
-            >
-              {{ $t('Sale') }}
-            </router-link>
-          </li>
-          <li @click="closeMenu" v-if="isCurrentMenuShowed" class="bg-cl-secondary">
-            <router-link
-              class="block px25 py20 brdr-bottom-1 brdr-cl-secondary cl-accent no-underline fs-medium-small"
-              :to="localizedRoute('/magazine')"
-              exact
-            >
-              {{ $t('Magazine') }}
-            </router-link>
-          </li>
-          <li @click="closeMenu" v-if="compareIsActive && isCurrentMenuShowed" class="bg-cl-secondary">
-            <router-link
-              class="block px25 py20 brdr-bottom-1 brdr-cl-secondary cl-accent no-underline fs-medium-small"
-              :to="localizedRoute('/compare')"
-              exact
-            >
-              {{ $t('Compare products') }}
-            </router-link>
-          </li>
-          <li @click="login" class="brdr-bottom-1 brdr-cl-secondary bg-cl-secondary flex">
-            <sub-btn
-              v-if="currentUser"
-              :name="$t('My account')"
-              class="bg-cl-transparent brdr-none fs-medium-small"
-            />
-            <sub-category
-              v-if="currentUser"
-              :my-account-links="myAccountLinks"
-              :id="'foo'"
-              @click.native="closeMenu"
-            />
-            <a
-              v-if="!currentUser && isCurrentMenuShowed"
-              href="#"
-              @click.prevent="closeMenu"
-              class="block w-100 px25 py20 cl-accent no-underline fs-medium-small"
-            >
-              {{ $t('My account') }}
-            </a>
-          </li>
         </ul>
       </div>
     </div>
+    <footer class="row my-account">
+      <div class="col-xs-10 bg-cl-primary">
+        <div @click="login" class="login brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex">
+          <font-awesome-icon class="w-100 h-100 account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
+          <sub-btn
+            v-if="currentUser"
+            :name="$t('My account')"
+            class="bg-cl-transparent brdr-none fs-medium-small"
+          />
+          <sub-category
+            v-if="currentUser"
+            :my-account-links="myAccountLinks"
+            :id="'foo'"
+            @click.native="closeMenu"
+          />
+          <a
+            v-if="!currentUser && isCurrentMenuShowed"
+            href="#"
+            @click.prevent="closeMenu"
+            class="account-field block w-100 cl-accent no-underline fs-medium-small"
+          >
+            {{ $t('My account') }}
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <wishlist-icon class="w-100 h-100 bg-cl-primary icon pointer" />
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -116,11 +115,13 @@ import i18n from '@vue-storefront/i18n'
 import SidebarMenu from '@vue-storefront/core/compatibility/components/blocks/SidebarMenu/SidebarMenu'
 import SubBtn from 'theme/components/core/blocks/SidebarMenu/SubBtn'
 import SubCategory from 'theme/components/core/blocks/SidebarMenu/SubCategory'
+import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon'
 
 export default {
   components: {
     SubCategory,
-    SubBtn
+    SubBtn,
+    WishlistIcon
   },
   mixins: [SidebarMenu],
   data () {
@@ -207,10 +208,35 @@ $color-gainsboro: color(gainsboro);
 $color-matterhorn: color(matterhorn);
 $color-mine-shaft: color(mine-shaft);
 
+a, button {
+  font-family: 'Nunito Sans';
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #404040;
+}
+
+.col-xs-10, .col-xs-2 {
+  padding: 0;
+}
+
+.account-icon {
+  padding: 4% 2% 5% 10%;
+}
+
+.account-field {
+  padding: 6% 0 6% 2%;
+}
+
 .sidebar-menu {
   height: 100vh;
   width: 350px;
   overflow: hidden;
+  background: #EEEEEE;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 
   @media (max-width: 767px) {
     width: 100vh;
@@ -237,6 +263,7 @@ $color-mine-shaft: color(mine-shaft);
     }
     a {
       color: $color-mine-shaft;
+      background: white;
     }
   }
 
@@ -246,7 +273,10 @@ $color-mine-shaft: color(mine-shaft);
   }
 
   button {
-    color: $color-mine-shaft;a {
+    color: $color-mine-shaft;
+    background: white;
+
+    a {
       color: $color-mine-shaft;
     }
   }
@@ -261,6 +291,10 @@ $color-mine-shaft: color(mine-shaft);
         color: $color-matterhorn;
       }
     }
+  }
+
+  .my-account {
+    background: #EEEEEE;
   }
 
 }

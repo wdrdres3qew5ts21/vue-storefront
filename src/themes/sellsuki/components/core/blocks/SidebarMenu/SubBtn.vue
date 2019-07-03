@@ -8,7 +8,7 @@
     data-testid="categoryButton"
   >
     {{ name }}
-    <i class="material-icons">keyboard_arrow_right</i>
+    <font-awesome-icon class="right" icon="chevron-right" size="md"/>
   </button>
   <button
     class="inline-flex p15 between-xs"
@@ -18,7 +18,7 @@
     :aria-label="$t('Back')"
   >
     {{ name }}
-    <i class="material-icons">keyboard_arrow_left</i>
+    <font-awesome-icon class="left" icon="chevron-left" size="md"/>
   </button>
 </template>
 <script>
@@ -63,13 +63,11 @@ export default {
 <style lang="scss" scoped>
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
-$color-gray: color(gainsboro);
 $color-black: color(matterhorn);
 
 button {
-  i {
-    color: $color-gray;
-    font-size: 28px;
+  .right, .left {
+    color: #C5C5C5;
     line-height: 24px;
   }
   &:hover,

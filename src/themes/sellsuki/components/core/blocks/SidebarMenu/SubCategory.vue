@@ -161,4 +161,14 @@ export default {
     display: flex;
     width: 100%;
   }
+
+  a {
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #404040;
+    text-transform: uppercase;
+  }
 </style>

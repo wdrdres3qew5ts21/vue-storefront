@@ -16,3 +16,9 @@ export default {
   mixins: [WishlistIcon]
 }
 </script>
+
+<style lang="scss" scoped>
+.material-icons {
+  font-size: 30px;
+}
+</style>
