@@ -1,34 +1,35 @@
 <template>
-  <li class="row pr55 py20">
+  <li class="row">
     <div @click="closeWishlist">
       <router-link :to="localizedRoute({
         name: product.type_id + '-product',
         fullPath: product.url_path,
         params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
       })">
-        <img v-lazy="thumbnail" >
+        <!-- <img v-lazy="thumbnail" > -->
+        <img src="../../../../assets/product.jpg" alt="">
       </router-link>
     </div>
-    <div class="col-xs between-xs flex pl40 py15">
-      <div @click="closeWishlist">
-        <router-link :to="localizedRoute({
-          name: product.type_id + '-product',
-          fullPath: product.url_path,
-          params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
+    <div class="container col-xs">
+      <div class="product-name-container" @click="closeWishlist">
+        <router-link
+          class="product-name"
+          :to="localizedRoute({
+            name: product.type_id + '-product',
+            fullPath: product.url_path,
+            params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
         })">
           {{ product.name | htmlDecode }}
         </router-link>
-        <div class="h6 cl-bg-secondary pt5">{{ product.sku }}</div>
       </div>
-    </div>
-    <div class="col-xs flex py15 align-right">
-      <div>
-        <span class="price-special" v-if="product.special_price">{{ product.priceInclTax | price }}</span>&nbsp;
+      <div class="product-price">
+        <span class="price-special" v-if="product.special_price">{{ product.priceInclTax | price }}</span>
         <span class="price-original" v-if="product.special_price" >{{ product.originalPriceInclTax | price }}</span>
 
         <span v-if="!product.special_price">
           {{ product.priceInclTax | price }}
         </span>
+        <hr>
       </div>
       <div>
         <div class="mt5"><span @click="removeFromWishlist(product)"><remove-button class="cl-accent" /></span></div>
@@ -49,7 +50,49 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.container {
+  padding-left: 4%;
+  width: calc(100% - 133px - 4%);
+  vertical-align: middle;
+}
+
+.row {
+  padding-left: 2%;
+}
+
+img {
+  width: 133px;
+  vertical-align: middle;
+}
+
+.product-price {
+  padding: 3% 0;
+}
+
+hr {
+  margin-right: 7%;
+  opacity: 0.3;
+}
+
+.product-name {
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 19px;
+  color: #404040;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.product-name-container {
+  margin-right: 7%;
+}
+
 .col-xs {
   flex-direction: column;
 }

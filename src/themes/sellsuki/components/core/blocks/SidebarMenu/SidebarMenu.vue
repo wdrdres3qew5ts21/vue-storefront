@@ -93,7 +93,7 @@
             @click.native="closeMenu"
           />
           <a
-            v-if="!currentUser && isCurrentMenuShowed"
+            v-if="!currentUser"
             href="#"
             @click.prevent="closeMenu"
             class="account-field block w-100 cl-accent no-underline fs-medium-small"
