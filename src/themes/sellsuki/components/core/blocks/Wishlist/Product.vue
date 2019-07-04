@@ -53,17 +53,27 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding-left: 4%;
-  width: calc(100% - 133px - 4%);
   vertical-align: middle;
+  width: calc(100% - 180px - 4%);
+
+  @media (max-width: 479px) {
+    width: calc(100% - 133px - 4%);
+  }
 }
 
 .row {
-  padding-left: 2%;
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
 }
 
 img {
-  width: 133px;
   vertical-align: middle;
+  width: 180px;
+
+  @media (max-width: 479px) {
+    width: 133px;
+  }
 }
 
 .product-price {
