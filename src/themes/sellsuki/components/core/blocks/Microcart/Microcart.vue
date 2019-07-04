@@ -5,37 +5,30 @@
     data-testid="microcart"
   >
     <div class="row middle-xs bg-cl-primary top-sm">
-      <div class="col-xs-10">
-        <h2
-          v-if="productsInCart.length"
-          class="cl-accent mt60 mb35 ml40 heading"
-        >
-          {{ $t('Shopping cart') }}
-        </h2>
-      </div>
-      <div class="col-xs-2 end-xs">
+      <div class="col-xs-12 end-xs">
         <button
           type="button"
           class="p0 brdr-none bg-cl-transparent close"
           @click="closeMicrocartExtend"
           data-testid="closeMicrocart"
         >
-          <i class="material-icons p15 cl-accent">
-            close
-          </i>
+          <font-awesome-icon class="p15" icon="times" size="2x" style="color: #C5C5C5;"/>
         </button>
       </div>
     </div>
-
-    <h4 v-if="!productsInCart.length" class="cl-accent ml30">
-      {{ $t('Your shopping cart is empty.') }}
-    </h4>
-    <div v-if="!productsInCart.length" class="ml30" @click="closeMicrocartExtend">
-      {{ $t("Don't hesitate and") }}
-      <router-link :to="localizedRoute('/')">
-        {{ $t('browse our catalog') }}
-      </router-link>
-      {{ $t('to find something beautiful for You!') }}
+    <p class="cl-accent heading">
+      BASKET
+    </p>
+    <div v-if="!productsInCart.length">
+      <p class="amount cl-accent">
+        NO ITEMS
+      </p>
+      <hr class="page-break">
+    </div>
+    <div v-else>
+      <p class="amount cl-accent">
+        {{ productsInCart.length }} ITEMS
+      </p>
     </div>
     <ul v-if="productsInCart.length" class="bg-cl-primary m0 px40 pb40 products">
       <product v-for="product in productsInCart" :key="product.sku" :product="product" />
@@ -105,6 +98,17 @@
           {{ $t('Go to checkout') }}
         </button-full>
         <instant-checkout v-if="isInstantCheckoutRegistered" class="no-outline button-full block brdr-none w-100 px10 py20 bg-cl-mine-shaft :bg-cl-th-secondary ripple weight-400 h4 cl-white sans-serif fs-medium mt20" />
+      </div>
+    </div>
+    <div v-if="!productsInCart.length" class="background flex">
+      <div
+        class="background-content inline-flex bg-cl-transparent brdr-none"
+        :aria-label="$t('Open wishlist')"
+      >
+        <font-awesome-icon class="icons" icon="shopping-bag" size="6x" style="color: #C5C5C5;"/>
+        <p class="background-text">
+          Your basket is empty.
+        </p>
       </div>
     </div>
   </div>
@@ -192,6 +196,73 @@ export default {
 <style lang="scss" scoped>
   @import "~theme/css/animations/transitions";
 
+  * {
+    font-family: 'Nunito Sans';
+    font-style: normal;
+  }
+
+  .heading, .amount {
+    background: white;
+  }
+
+  .heading {
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 34px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #404040;
+    margin: 0;
+    padding-left: 7%;
+  }
+
+  .page-break {
+    margin: 3% 7%;
+    opacity: 0.4;
+  }
+
+  .amount {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    padding: 3% 0 3% 7%;
+    color: #404040;
+    letter-spacing: 0.1em;
+  }
+
+  .background {
+    z-index: -1;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .background-content {
+      flex-direction: column;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      align-items: center;
+
+      .background-text {
+        font-family: Nunito Sans;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 19px;
+        color: #C5C5C5;
+        padding-top: 7%;
+      }
+
+      .icons {
+        text-align: center;
+      }
+    }
+  }
+
   .close {
     i {
       opacity: 0.6;
@@ -204,17 +275,8 @@ export default {
     }
   }
 
-  .heading {
-    @media (max-width: 767px) {
-      margin: 12px 0 12px 15px;
-      font-size: 24px;
-    }
-  }
-
   .products {
-    @media (max-width: 767px) {
-      padding: 30px 15px;
-    }
+    padding: 0;
   }
 
   .actions {

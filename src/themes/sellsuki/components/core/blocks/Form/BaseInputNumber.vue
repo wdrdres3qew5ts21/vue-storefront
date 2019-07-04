@@ -1,16 +1,26 @@
 <template>
   <div class="base-input-number">
-    <label class="base-input-number__label cl-primary flex" :for="getInputId">{{ name }}</label>
-    <input
+    <button
+      class="serif cl-accent"
+      type="button"
+    >
+      <font-awesome-icon class="left" icon="chevron-left" size="lg"/>
+    </button>
+    <div
       :id="getInputId"
       type="number"
       :min="min"
-      class="m0 no-outline base-input-number__input brdr-cl-primary bg-cl-transparent h4"
+      class="m0 base-input-number__input bg-cl-transparent h4"
       :focus="autofocus"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
-      @blur="$emit('blur', $event.target.value)"
     >
+      {{ value }}
+    </div>
+    <button
+      class="serif cl-accent"
+      type="button"
+    >
+      <font-awesome-icon class="right" icon="chevron-right" size="lg"/>
+    </button>
     <ValidationMessages v-if="validations" :validations="validations" />
   </div>
 </template>
@@ -63,27 +73,17 @@ export default {
   @import '~theme/css/helpers/functions/color';
 
   .base-input-number {
-    width: 100%;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    display: flex;
+    padding: 0 25px;
 
     &__input {
-      border-style: solid;
-      border-width: 0 0 1px 0;
-      width: 50px;
-      height: 1.4rem;
-      line-height: 1.7rem;
-      @media (min-width: 768px) {
-        height: 1.7rem;
-      }
-    }
-
-    &__label {
-      font-size: 0.8rem;
-      line-height: 1.2rem;
-      max-width: 100px;
-      @media (min-width: 768px) {
-        font-size: 1rem;
-        line-height: 1.4rem;
-      }
+      text-align: center;
+      width: 40px;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 22px;
     }
   }
 

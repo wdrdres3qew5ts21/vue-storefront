@@ -1,78 +1,58 @@
 <template>
-  <li class="row flex-nowrap py10">
+  <li class="row flex-nowrap">
     <div>
       <div class="ml10 bg-cl-secondary">
-        <img class="image" v-lazy="thumbnail" alt="" >
+        <!-- <img class="image" v-lazy="thumbnail" alt="" > -->
+        <img src="../../../../assets/product.jpg" alt="">
       </div>
     </div>
-    <div class="col-xs flex pl35 py15 start-xs between-sm details">
+    <div class="col-xs flex start-xs between-sm details">
       <div>
-        <div class="serif h4 name">
+        <div class="serif name">
           {{ product.name | htmlDecode }}
         </div>
-        <div class="h6 cl-bg-tertiary pt5 sku" data-testid="productSku">
+        <div class="h6 cl-bg-tertiary pt3 sku" data-testid="productSku">
           {{ product.sku }}
         </div>
-        <div class="h6 cl-bg-tertiary pt5 options" v-if="product.totals && product.totals.options">
-          <div v-for="opt in product.totals.options" :key="opt.label">
-            <span class="opn">{{ opt.label }}: </span>
-            <span class="opv" v-html="opt.value" />
-          </div>
-        </div>
-        <div class="h6 cl-bg-tertiary pt5 options" v-else-if="product.options">
-          <div v-for="opt in product.options" :key="opt.label">
-            <span class="opn">{{ opt.label }}: </span>
-            <span class="opv" v-html="opt.value" />
-          </div>
-        </div>
-        <div class="h6 pt5 cl-error" v-if="product.errors && Object.keys(product.errors).length > 0">
-          {{ product.errors | formatProductMessages }}
-        </div>
-        <div class="h6 pt5 cl-success" v-if="product.info && Object.keys(product.info).length > 0 && Object.keys(product.errors).length === 0">
-          {{ product.info | formatProductMessages }}
-        </div>
       </div>
-      <div class="h5 pt5 cl-accent lh25 qty">
+      <div class="row h5 pt5 cl-accent qty">
+        <p class="size">{{ product.options[0].value }}</p>
         <base-input-number
-          :name="$t('Quantity')"
           :value="product.qty"
           @input="updateQuantity"
           :min="1"
         />
-      </div>
-    </div>
-    <div class="flex py15 mr10 align-right start-xs between-sm actions">
-      <div class="prices" v-if="!displayItemDiscounts">
-        <span class="h4 serif cl-error price-special" v-if="product.special_price">
-          {{ product.priceInclTax * product.qty | price }}&nbsp;
-        </span>
-        <span class="h6 serif price-original" v-if="product.special_price">
-          {{ product.originalPriceInclTax * product.qty | price }}
-        </span>
-        <span class="h4 serif price-regular" v-if="!product.special_price" data-testid="productPrice">
-          {{ product.priceInclTax * product.qty | price }}
-        </span>
-      </div>
-      <div class="prices" v-else-if="product.totals">
-        <span class="h4 serif cl-error price-special" v-if="product.totals.discount_amount">
-          {{ product.totals.row_total_incl_tax - product.totals.discount_amount | price }}&nbsp;
-        </span>
-        <span class="h6 serif price-original" v-if="product.totals.discount_amount">
-          {{ product.totals.row_total_incl_tax | price }}
-        </span>
-        <span class="h4 serif price-regular" v-if="!product.totals.discount_amount">
-          {{ product.totals.row_total_incl_tax | price }}
-        </span>
-      </div>
-      <div class="prices" v-else>
-        <span class="h4 serif price-regular">
-          {{ product.regular_price * product.qty | price }}
-        </span>
-      </div>
-      <div class="links">
-        <div class="mt5" @click="removeItem">
-          <remove-button />
+        <div class="prices" v-if="!displayItemDiscounts">
+          <span class="serif cl-error price" v-if="product.special_price">
+            {{ product.priceInclTax * product.qty | price }}&nbsp;
+          </span>
+          <span class="h6 serif price" v-if="product.special_price">
+            {{ product.originalPriceInclTax * product.qty | price }}
+          </span>
+          <span class="serif price" v-if="!product.special_price" data-testid="productPrice">
+            {{ product.priceInclTax * product.qty | price }}
+          </span>
         </div>
+        <div class="prices" v-else-if="product.totals">
+          <span class="serif cl-error price" v-if="product.totals.discount_amount">
+            {{ product.totals.row_total_incl_tax - product.totals.discount_amount | price }}&nbsp;
+          </span>
+          <span class="serif price" v-if="product.totals.discount_amount">
+            {{ product.totals.row_total_incl_tax | price }}
+          </span>
+          <span class="serif price" v-if="!product.totals.discount_amount">
+            {{ product.totals.row_total_incl_tax | price }}
+          </span>
+        </div>
+        <div class="prices" v-else>
+          <span class="serif price">
+            {{ product.regular_price * product.qty | price }}
+          </span>
+        </div>
+      </div>
+      <hr class="page-break">
+      <div class="links">
+        <div class="mt5"><span @click="removeItem"><remove-button class="cl-accent" /></span></div>
       </div>
     </div>
   </li>
@@ -100,35 +80,67 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .image {
-    mix-blend-mode: multiply;
+  *{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    color: #404040;
+    text-transform: uppercase;
+  }
+
+  .name {
+    padding-right: 34px;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: calc(100% - 34px);
+  }
+
+  .size {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .row {
+    padding-bottom: 0;
+  }
+
+  img {
     vertical-align: top;
+    margin-left: -2px;
     width: 150px;
     @media (max-width: 767px) {
-      width: 100px;
+      width: 133px;
     }
+  }
+
+  .head {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  .sku {
+    color: #C5C5C5;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
   }
 
   .details {
     flex-direction: column;
-    @media (max-width: 767px) {
-      padding: 0 10px 0 20px;
-    }
-  }
+    padding-left: 4%;
+    vertical-align: middle;
+    width: calc(100% - 180px - 4%);
+    justify-content: center;
 
-  .name {
-    @media (max-width: 767px) {
-      font-size: 14px;
-    }
-  }
-
-  .options, .sku {
-    @media (max-width: 767px) {
-      font-size: 10px;
+    @media (max-width: 479px) {
+      width: calc(100% - 133px - 4%);
     }
   }
 
   .qty {
+    margin: 0;
     @media (max-width: 767px) {
       font-size: 12px;
     }
@@ -147,20 +159,10 @@ export default {
     }
   }
 
-  .price-special {
-    @media (max-width: 767px) {
-      font-size: 14px;
-    }
-  }
-
-  .price-original {
-    text-decoration: line-through;
-  }
-
-  .price-regular {
-    @media (max-width: 767px) {
-      font-size: 14px;
-    }
+  .price {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
   }
 
   input {
@@ -169,5 +171,10 @@ export default {
 
   .flex-nowrap {
     flex-wrap: nowrap;
+  }
+
+  .page-break {
+    margin: 3% 7% 3% 0;
+    opacity: 0.4;
   }
 </style>
