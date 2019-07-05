@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-menu fixed mw-100 bg-cl-secondary">
-    <div class="row brdr-bottom-1 brdr-cl-bg-secondary">
+    <div class="row outermost brdr-bottom-1 brdr-cl-bg-secondary">
       <div class="col-xs bg-cl-primary" v-if="submenu.depth">
         <sub-btn type="back" class="bg-cl-transparent brdr-none" />
       </div>
@@ -15,8 +15,8 @@
         </button>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-12 h4 serif">
+    <div class="row list-row">
+      <div class="col-xs-12 h4 serif list-menu">
         <ul class="p0 m0 relative sidebar-menu__list" :style="mainListStyles">
           <li @click="closeMenu" class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary">
             <router-link
@@ -74,38 +74,33 @@
               :parent-path="category.url_path"
             />
           </li>
+          <li @click="login" class="brdr-bottom-1 brdr-cl-secondary bg-cl-secondary flex">
+            <font-awesome-icon class="account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
+            <sub-btn
+              v-if="currentUser"
+              :show-right-arrow="false"
+              :name="$t('My account')"
+              class="bg-cl-transparent brdr-none fs-medium-small"
+            />
+            <sub-category
+              v-if="currentUser"
+              :my-account-links="myAccountLinks"
+              :id="'foo'"
+              @click.native="closeMenu"
+            />
+            <a
+              v-if="!currentUser && isCurrentMenuShowed"
+              href="#"
+              @click.prevent="closeMenu"
+              class="account-text block w-100 py20 cl-accent no-underline fs-medium-small"
+            >
+              {{ $t('My account') }}
+            </a>
+            <wishlist-icon class="h-100 bg-cl-primary icon pointer" />
+          </li>
         </ul>
       </div>
     </div>
-    <footer class="row my-account">
-      <div class="col-xs-10 bg-cl-primary">
-        <div @click="login" class="login brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex">
-          <font-awesome-icon class="w-100 h-100 account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
-          <sub-btn
-            v-if="currentUser"
-            :name="$t('My account')"
-            class="bg-cl-transparent brdr-none fs-medium-small"
-          />
-          <sub-category
-            v-if="currentUser"
-            :my-account-links="myAccountLinks"
-            :id="'foo'"
-            @click.native="closeMenu"
-          />
-          <a
-            v-if="!currentUser"
-            href="#"
-            @click.prevent="closeMenu"
-            class="account-field block w-100 cl-accent no-underline fs-medium-small"
-          >
-            {{ $t('My account') }}
-          </a>
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <wishlist-icon class="w-100 h-100 bg-cl-primary icon pointer" />
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -223,11 +218,20 @@ a, button {
 }
 
 .account-icon {
-  padding: 4% 2% 5% 10%;
+  padding: 0 2% 0 25px;
 }
 
-.account-field {
-  padding: 6% 0 6% 2%;
+.list-row, .list-items {
+  height: 100%;
+}
+
+.pointer {
+  padding-right: 4%;
+}
+
+.outermost {
+  align-items: center;
+  background: white;
 }
 
 .sidebar-menu {
@@ -235,8 +239,8 @@ a, button {
   width: 350px;
   overflow: hidden;
   background: #EEEEEE;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 767px) {
     width: 100vh;
@@ -248,12 +252,24 @@ a, button {
 
   ul {
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
   }
 
   li {
+    width: 100%;
+    background: white;
+
     &:hover,
     &:focus {
       background-color: $color-gainsboro;
+    }
+    &:last-child {
+      margin-top: auto;
+      align-items: center;
+      justify-content: flex-start;
     }
     &.bg-cl-primary {
       &:hover,

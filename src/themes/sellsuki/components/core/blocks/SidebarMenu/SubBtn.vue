@@ -1,7 +1,7 @@
 <template>
   <button
-    class="inline-flex between-xs w-100 px25 py20 pr15 serif cl-accent"
-    v-if="type === 'next'"
+    class="inline-flex between-xs w-100 px25 py20 serif cl-accent"
+    v-if="type === 'next' && showRightArrow"
     type="button"
     @click.stop="next()"
     :aria-label="$t('Show subcategories')"
@@ -9,6 +9,16 @@
   >
     {{ name }}
     <font-awesome-icon class="right" icon="chevron-right" size="md"/>
+  </button>
+  <button
+    class="inline-flex between-xs w-100 py20 serif cl-accent"
+    v-else-if="type === 'next' && !showRightArrow"
+    type="button"
+    @click.stop="next()"
+    :aria-label="$t('Show subcategories')"
+    data-testid="categoryButton"
+  >
+    {{ name }}
   </button>
   <button
     class="inline-flex p15 between-xs"
@@ -37,6 +47,10 @@ export default {
     name: {
       type: String,
       default: ''
+    },
+    showRightArrow: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

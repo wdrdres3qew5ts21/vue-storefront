@@ -34,11 +34,11 @@
       <product v-for="product in productsInCart" :key="product.sku" :product="product" />
     </ul>
     <div v-if="productsInCart.length" class="summary px40 cl-accent serif">
-      <h3 class="m0 pt40 mb30 weight-400 summary-heading">
-        {{ $t('Shopping summary') }}
-      </h3>
-      <div v-for="(segment, index) in totals" :key="index" class="row py20" v-if="segment.code !== 'grand_total'">
-        <div class="col-xs">
+      <p class="m0 pt30 mb10 weight-400 summary-heading">
+        BASKET SUMMARY
+      </p>
+      <div v-for="(segment, index) in totals" :key="index" class="row summary-details" v-if="segment.code === 'subtotalInclTax'">
+        <div class="col-xs subtotal">
           {{ segment.title }}
           <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="p0 brdr-none bg-cl-transparent close delete-button ml10" @click="clearCoupon">
             <i class="material-icons cl-accent">
@@ -46,11 +46,11 @@
             </i>
           </button>
         </div>
-        <div v-if="segment.value != null" class="col-xs align-right">
+        <div v-if="segment.value != null" class="col-xs align-right price">
           {{ segment.value | price }}
         </div>
       </div>
-      <div class="row py20">
+      <div class="row summary-details">
         <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
           <button
             class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent"
@@ -68,7 +68,6 @@
           <button-outline color="dark" :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-outline>
         </div>
       </div>
-
       <div class="row pt30 pb20 weight-700 middle-xs" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
         <div class="col-xs h4 total-price-label">
           {{ segment.title }}
@@ -296,17 +295,38 @@ export default {
     }
   }
 
+  .summary-details {
+    padding: 5% 3% 0 3%;
+  }
+
   .summary {
     @media (max-width: 767px) {
-      padding:  0 15px;
+      padding:  0 7%;
       font-size: 12px;
     }
   }
 
   .summary-heading {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #404040;
+  }
+
+  .subtotal {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #404040;
+  }
+
+  .price {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.1em;
   }
 
   .total-price-label {

@@ -20,6 +20,7 @@
         <base-input-number
           :value="product.qty"
           @input="updateQuantity"
+          @updateQuantity="updateQuantity"
           :min="1"
         />
         <div class="prices" v-if="!displayItemDiscounts">
@@ -141,6 +142,9 @@ export default {
 
   .qty {
     margin: 0;
+    justify-content: space-between;
+    padding: 5% 7% 5% 0;
+
     @media (max-width: 767px) {
       font-size: 12px;
     }
@@ -174,7 +178,7 @@ export default {
   }
 
   .page-break {
-    margin: 3% 7% 3% 0;
+    margin: 0 7% 3% 0;
     opacity: 0.4;
   }
 </style>

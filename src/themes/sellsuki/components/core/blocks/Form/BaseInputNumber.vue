@@ -3,6 +3,7 @@
     <button
       class="serif cl-accent"
       type="button"
+      @click="decreaseValue"
     >
       <font-awesome-icon class="left" icon="chevron-left" size="lg"/>
     </button>
@@ -18,6 +19,7 @@
     <button
       class="serif cl-accent"
       type="button"
+      @click="increaseValue"
     >
       <font-awesome-icon class="right" icon="chevron-right" size="lg"/>
     </button>
@@ -63,6 +65,16 @@ export default {
   computed: {
     getInputId () {
       return `input_${this._uid}`
+    }
+  },
+  methods: {
+    increaseValue () {
+      this.value++
+      this.$emit('updateQuantity', this.value)
+    },
+    decreaseValue () {
+      this.value--
+      this.$emit('updateQuantity', this.value)
     }
   }
 }
