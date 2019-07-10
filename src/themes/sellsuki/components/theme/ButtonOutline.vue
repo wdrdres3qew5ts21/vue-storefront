@@ -2,7 +2,7 @@
   <component
     :is="link ? 'router-link' : 'button'"
     :to="localizedRoute(link)"
-    class="button-outline no-outline py15 bg-cl-transparent h4 no-underline sans-serif fs-medium"
+    class="button-outline no-outline no-underline sans-serif fs-medium"
     :class="{
       light : color === 'light', 'brdr-white' : color === 'light', 'cl-white' : color === 'light',
       dark : color === 'dark', 'brdr-darkgray' : color === 'dark', 'cl-secondary' : color === 'dark',
@@ -45,7 +45,7 @@ export default {
 
   .button-outline {
     border: 2px solid;
-    min-width: 250px;
+    background-color: transparent;
   }
   .dark {
     border: 1px solid $dark-border;

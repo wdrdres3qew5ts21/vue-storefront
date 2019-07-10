@@ -7,7 +7,7 @@
     <div class="modal-content pt30 pb50 px65 cl-secondary">
       <form @submit.prevent="login" novalidate>
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="email"
           name="email"
           focus
@@ -26,7 +26,7 @@
           ]"
         />
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="password"
           name="password"
           v-model="password"

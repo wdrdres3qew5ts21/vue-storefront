@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="row h5 pt5 cl-accent qty">
-        <p class="size">{{ product.options[0].value }}</p>
+        <p class="size">{{ size }}</p>
         <base-input-number
           :value="product.qty"
           @input="updateQuantity"
@@ -74,7 +74,8 @@ export default {
   mixins: [Product],
   data () {
     return {
-      displayItemDiscounts: rootStore.state.config.cart.displayItemDiscounts
+      displayItemDiscounts: rootStore.state.config.cart.displayItemDiscounts,
+      size: this.product.sku.substr(this.product.sku.indexOf('-') + 1)
     }
   }
 }
@@ -100,6 +101,7 @@ export default {
   .size {
     font-size: 16px;
     line-height: 22px;
+    width: 20px;
   }
 
   .row {

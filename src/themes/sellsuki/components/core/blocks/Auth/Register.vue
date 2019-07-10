@@ -14,7 +14,7 @@
     <div class="modal-content pt30 pb60 px65 cl-secondary">
       <form @submit.prevent="register" novalidate>
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="email"
           name="email"
           autocomplete="email"
@@ -34,7 +34,7 @@
           ]"
         />
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="text"
           name="fist-name"
           autocomplete="given-name"
@@ -53,7 +53,7 @@
           ]"
         />
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="text"
           name="last-name"
           autocomplete="last-name"
@@ -66,7 +66,7 @@
           }]"
         />
         <base-input
-          class="mb10"
+          class="mb10 py10"
           type="password"
           name="password"
           ref="password"
@@ -86,7 +86,7 @@
           ]"
         />
         <base-input
-          class="mb25"
+          class="mb25 py10"
           type="password"
           name="password-confirm"
           autocomplete="new-password"
@@ -105,7 +105,7 @@
           ]"
         />
         <base-checkbox
-          class="mb10"
+          class="mb10 py10"
           id="terms"
           v-model="conditions"
           @click="conditions = !conditions"

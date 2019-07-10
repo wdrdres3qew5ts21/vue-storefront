@@ -1,9 +1,29 @@
 <template>
   <div class="relative base-input">
-    <div class="relative">
+    <div class="relative promotion-wrapper" v-if="page === 'promotion'">
       <input
         class="
-         py10 w-100 border-box brdr-none brdr-bottom-1
+         w-100 promotion-input
+       "
+        :class="{pr30: type === 'password', empty: value === ''}"
+        :type="type === 'password' ? passType : type"
+        :name="name"
+        :autocomplete="autocomplete"
+        :value="value"
+        :placeholder="placeholder_data"
+        :autofocus="autofocus"
+        @focus="placeholder_data = ''"
+        :ref="name"
+        @input="$emit('input', $event.target.value)"
+        @blur="$emit('blur'); placeholder_data = 'ADD A PROMOTION'"
+        @keyup.enter="$emit('keyup.enter', $event.target.value)"
+        @keyup="$emit('keyup', $event)"
+      >
+    </div>
+    <div class="relative" v-else>
+      <input
+        class="
+         w-100 border-box brdr-none brdr-bottom-1
          brdr-cl-primary h4
        "
         :class="{pr30: type === 'password', empty: value === ''}"
@@ -49,13 +69,19 @@ export default {
     return {
       passType: 'password',
       iconActive: false,
-      icon: 'visibility_off'
+      icon: 'visibility_off',
+      placeholder_data: this.placeholder
     }
   },
   props: {
     type: {
       type: String,
       required: true
+    },
+    page: {
+      type: String,
+      required: false,
+      default: ''
     },
     value: {
       type: [String, Number],
@@ -133,8 +159,24 @@ export default {
     font-family: 'Nunito Sans';
   }
 
-  .base-input {
-    min-height: 4.5rem;
+  .promotion-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .promotion-input {
+      text-align: center;
+      color: #C5C5C5;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+
+      margin-bottom: 10%;
+      height: 21px;
+      width: 166px;
+
+      border: none;
+      border-bottom: 3px solid #C5C5C5;
+    }
   }
 
   input {

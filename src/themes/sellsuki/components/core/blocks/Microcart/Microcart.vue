@@ -1,7 +1,6 @@
 <template>
   <div
     class="microcart cl-accent"
-    :class="[productsInCart.length ? 'bg-cl-secondary' : 'bg-cl-primary']"
     data-testid="microcart"
   >
     <div class="row middle-xs bg-cl-primary top-sm">
@@ -27,7 +26,7 @@
     </div>
     <div v-else>
       <p class="amount cl-accent">
-        {{ productsInCart.length }} ITEMS
+        {{ quantity }} ITEMS
       </p>
     </div>
     <ul v-if="productsInCart.length" class="bg-cl-primary m0 px40 pb40 products">
@@ -37,7 +36,7 @@
       <p class="m0 pt30 mb10 weight-400 summary-heading">
         BASKET SUMMARY
       </p>
-      <div v-for="(segment, index) in totals" :key="index" class="row summary-details" v-if="segment.code === 'subtotalInclTax'">
+      <div v-for="(segment, index) in totals" :key="index" class="row summary-details">
         <div class="col-xs subtotal">
           {{ segment.title }}
           <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="p0 brdr-none bg-cl-transparent close delete-button ml10" @click="clearCoupon">
@@ -51,41 +50,36 @@
         </div>
       </div>
       <div class="row summary-details">
-        <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
-          <button
-            class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent"
-            type="button"
-            @click="addDiscountCoupon"
-          >
-            {{ $t('Add a discount code') }}
-          </button>
-        </div>
-        <div v-if="OnlineOnly && addCouponPressed" class="col-xs-12 pt30 coupon-wrapper">
-          <div class="coupon-input">
-            <label class="h6 cl-secondary">{{ $t('Discount code') }}</label>
-            <base-input type="text" id="couponinput" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
+        <div v-if="OnlineOnly" class="col-xs-5">
+          <div class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent">
+            Discount code
           </div>
-          <button-outline color="dark" :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-outline>
+        </div>
+        <div v-if="OnlineOnly" class="col-xs-7 coupon-wrapper">
+          <div class="coupon-input">
+            <base-input type="text" id="couponinput" page="promotion" :autofocus="true" v-model.trim="couponCode" placeholder="ADD A PROMOTION" @keyup.enter="setCoupon"/>
+          </div>
+          <button-outline class="promotion-btn" color="dark" :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-outline>
         </div>
       </div>
-      <div class="row pt30 pb20 weight-700 middle-xs" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
-        <div class="col-xs h4 total-price-label">
-          {{ segment.title }}
+      <div class="row summary-details middle-xs" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
+        <div class="col-xs total-price-label">
+          TOTAL
         </div>
-        <div class="col-xs align-right h2 total-price-value">
+        <div class="col-xs align-right total-price-value">
           {{ segment.value | price }}
         </div>
       </div>
+      <div class="summary-break"/>
     </div>
-
     <div
-      class="row py20 px40 middle-xs actions"
+      class="row middle-xs actions"
       v-if="productsInCart.length && !isCheckoutMode"
     >
       <div class="col-xs-12 col-sm first-sm">
         <router-link :to="localizedRoute('/')" class="no-underline cl-secondary link">
-          <span @click="closeMicrocartExtend">
-            {{ $t('Return to shopping') }}
+          <span class="shopping" @click="closeMicrocartExtend">
+            RETURN TO SHOPPING
           </span>
         </router-link>
       </div>
@@ -94,9 +88,8 @@
           :link="{ name: 'checkout' }"
           @click.native="closeMicrocartExtend"
         >
-          {{ $t('Go to checkout') }}
+          CHECKOUT
         </button-full>
-        <instant-checkout v-if="isInstantCheckoutRegistered" class="no-outline button-full block brdr-none w-100 px10 py20 bg-cl-mine-shaft :bg-cl-th-secondary ripple weight-400 h4 cl-white sans-serif fs-medium mt20" />
       </div>
     </div>
     <div v-if="!productsInCart.length" class="background flex">
@@ -145,7 +138,8 @@ export default {
       addCouponPressed: false,
       couponCode: '',
       componentLoaded: false,
-      isInstantCheckoutRegistered: isModuleRegistered('instant-checkout')
+      isInstantCheckoutRegistered: isModuleRegistered('instant-checkout'),
+      quantity: 0
     }
   },
   props: {
@@ -159,10 +153,25 @@ export default {
     this.$nextTick(() => {
       this.componentLoaded = true
     })
+    this.countItems()
+  },
+  watch: {
+    productsInCart: {
+      handler (val) {
+        this.countItems()
+      },
+      deep: true
+    }
   },
   methods: {
     addDiscountCoupon () {
       this.addCouponPressed = true
+    },
+    countItems () {
+      this.quantity = 0
+      this.productsInCart.map(product => {
+        this.quantity += product.qty
+      })
     },
     clearCoupon () {
       this.removeCoupon()
@@ -213,6 +222,31 @@ export default {
     color: #404040;
     margin: 0;
     padding-left: 7%;
+  }
+
+  .microcart {
+    height: 100%;
+  }
+
+  .microcart-btn {
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+
+    letter-spacing: 0.25em;
+
+    color: #EEEEEE;
+  }
+
+  .shopping {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.1em;
+
+    color: #404040;
+
   }
 
   .page-break {
@@ -279,8 +313,9 @@ export default {
   }
 
   .actions {
+    background: #EEEEEE;
     @media (max-width: 767px) {
-      padding: 0 15px;
+      padding: 5% 7% 0 7%;
     }
     .link {
       @media (max-width: 767px) {
@@ -300,10 +335,9 @@ export default {
   }
 
   .summary {
-    @media (max-width: 767px) {
-      padding:  0 7%;
-      font-size: 12px;
-    }
+    background: #EEEEEE;
+    padding:  0 7%;
+    font-size: 14px;
   }
 
   .summary-heading {
@@ -313,6 +347,12 @@ export default {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #404040;
+  }
+
+  .summary-break {
+    padding: 6% 0 1% 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    background: #EEEEEE;
   }
 
   .subtotal {
@@ -331,13 +371,22 @@ export default {
 
   .total-price-label {
     @media (max-width: 767px) {
-      font-size: 18px;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      letter-spacing: 0.1em;
+      color: #404040;
     }
   }
 
   .total-price-value {
     @media (max-width: 767px) {
-      font-size: 24px;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      letter-spacing: 0.1em;
+
+      color: #404040;
     }
   }
 
@@ -347,15 +396,31 @@ export default {
 
   .coupon-wrapper {
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 
     .button-outline {
-      text-transform: inherit;
-      width: 50%;
+      width: 166px;
+      height: 40px;
+      padding: 0;
+
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 19px;
+      text-align: center;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+
+      background: #404040;
+      color: #EEEEEE;
+
+      border: 1.5px solid #404040;
+      box-sizing: border-box;
+      border-radius: 0.5px;
     }
 
     .coupon-input {
-      margin-right: 20px;
-      width: 100%;
+      width: 166px;
     }
   }
 </style>
