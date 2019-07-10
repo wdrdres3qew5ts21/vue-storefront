@@ -4,13 +4,7 @@
     data-testid="searchPanel"
   >
     <div class="close-icon-row">
-      <i
-        class="material-icons pointer cl-accent close-icon"
-        @click="closeSearchpanel"
-        data-testid="closeSearchPanel"
-      >
-        close
-      </i>
+      <font-awesome-icon class="p15" @click="closeSearchpanel" data-testid="closeSearchPanel" icon="times" size="lg" style="color: #C5C5C5;"/>
     </div>
     <div class="container">
       <div class="row">
@@ -18,16 +12,17 @@
           <label for="search" class="visually-hidden">
             {{ $t('Search') }}
           </label>
-          <div class="search-input-group">
-            <i class="material-icons search-icon">search</i>
+          <div class="search-input-group mt15">
+            <font-awesome-icon class="search-icon" icon="search" size="md" style="color: #C5C5C5;"/>
             <input
               ref="search"
               id="search"
               v-model="search"
               @input="makeSearch"
-              @blur="$v.search.$touch()"
+              @blur="$v.search.$touch(); placeholder = 'Search'"
+              @focus="placeholder = ''"
               class="search-panel-input"
-              :placeholder="$t('Type what you are looking for...')"
+              :placeholder="placeholder"
               type="text"
               autofocus="true"
             >
@@ -35,44 +30,24 @@
         </div>
       </div>
       <div v-if="visibleProducts.length && categories.length > 1" class="categories">
-        <category-panel :categories="categories" v-model="selectedCategoryIds"/>
+        <category-panel :categories="categories" :amount="visibleProducts.length" v-model="selectedCategoryIds"/>
       </div>
-      <div class="product-listing row">
-        <product-tile
-          v-for="product in visibleProducts"
-          :key="product.id"
-          :product="product"
-          @click.native="closeSearchpanel"
-        />
-        <transition name="fade">
-          <div
-            v-if="getNoResultsMessage"
-            class="no-results relative center-xs h4 col-md-12"
-          >
-            {{ $t(getNoResultsMessage) }}
-          </div>
-        </transition>
-      </div>
-      <div
-        v-show="OnlineOnly"
-        v-if="visibleProducts.length >= 18"
-        class="buttons-set align-center py35 mt20 px40"
-      >
-        <button
-          @click="seeMore" v-if="readMore"
-          class="no-outline brdr-none py15 px20 bg-cl-mine-shaft :bg-cl-th-secondary cl-white fs-medium-small"
-          type="button"
+    </div>
+    <div class="product-listing row">
+      <product-tile
+        v-for="product in visibleProducts"
+        :key="product.id"
+        :product="product"
+        @click.native="closeSearchpanel"
+      />
+      <transition name="fade">
+        <div
+          v-if="getNoResultsMessage"
+          class="no-results relative center-xs h4 col-md-12"
         >
-          {{ $t('Load more') }}
-        </button>
-        <button
-          @click="closeSearchpanel"
-          class="no-outline brdr-none p15 fs-medium-small close-button"
-          type="button"
-        >
-          {{ $t('Close') }}
-        </button>
-      </div>
+          {{ $t(getNoResultsMessage) }}
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -97,7 +72,8 @@ export default {
   },
   data () {
     return {
-      selectedCategoryIds: []
+      selectedCategoryIds: [],
+      placeholder: 'Search'
     }
   },
   computed: {
@@ -142,6 +118,10 @@ export default {
 @import "~theme/css/animations/transitions";
 @import "~theme/css/variables/grid";
 @import "~theme/css/variables/typography";
+
+* {
+  font-family: 'Nunito Sans';
+}
 
 .searchpanel {
   height: 100vh;
@@ -200,7 +180,6 @@ export default {
     @media #{$media-xs} {
       width: 50%;
       padding-left: map-get($grid-gutter-widths, xs) / 2;
-      padding-right: map-get($grid-gutter-widths, xs) / 2;
     }
   }
 
@@ -210,43 +189,36 @@ export default {
 
   .search-input-group {
     display: flex;
-    border-bottom: 1px solid #bdbdbd;
+    align-items: center;
+    border-bottom: 3px solid #EEEEEE;
   }
 
   .search-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding-left: 4%;
   }
 
   .search-panel-input {
+    color: #C5C5C5;
+    font-weight: bold;
     width: 100%;
-    height: 60px;
-    padding-bottom: 0;
-    padding-top: 0;
+    padding-left: 5%;
     border: none;
     outline: 0;
-    font-size: 18px;
-    font-family: map-get($font-families, secondary);
+    font-size: 16px;
+    line-height: 30px;
+    height: 30px;
+    opacity: 0.7;
 
-    @media #{$media-xs} {
-      font-size: 16px;
+    &:focus {
+      opacity: 1;
+      color: #404040;
+      text-transform: capitalize;
     }
   }
 
   .no-results {
     top: 80px;
     width: 100%;
-  }
-
-  i {
-    opacity: 0.6;
-  }
-
-  i:hover {
-    opacity: 1;
   }
 
   .close-button {
