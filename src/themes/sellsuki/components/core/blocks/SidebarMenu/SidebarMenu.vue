@@ -74,29 +74,35 @@
               :parent-path="category.url_path"
             />
           </li>
-          <li @click="login" class="brdr-bottom-1 brdr-cl-secondary bg-cl-secondary flex">
-            <font-awesome-icon class="account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
-            <sub-btn
-              v-if="currentUser"
-              :show-right-arrow="false"
-              :name="$t('My account')"
-              class="bg-cl-transparent brdr-none fs-medium-small"
-            />
-            <sub-category
-              v-if="currentUser"
-              :my-account-links="myAccountLinks"
-              :id="'foo'"
-              @click.native="closeMenu"
-            />
-            <a
-              v-if="!currentUser && isCurrentMenuShowed"
-              href="#"
-              @click.prevent="closeMenu"
-              class="account-text block w-100 py20 cl-accent no-underline fs-medium-small"
-            >
-              {{ $t('My account') }}
-            </a>
-            <wishlist-icon class="h-100 bg-cl-primary icon pointer" />
+          <li class="brdr-bottom-1 brdr-cl-secondary bg-cl-secondary flex">
+            <div class="row account-tab">
+              <div @click="login" class="col-xs-10 my-account">
+                <font-awesome-icon class="account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
+                <sub-btn
+                  v-if="currentUser"
+                  :show-right-arrow="false"
+                  :name="$t('My account')"
+                  class="bg-cl-transparent brdr-none fs-medium-small"
+                />
+                <sub-category
+                  v-if="currentUser"
+                  :my-account-links="myAccountLinks"
+                  :id="'foo'"
+                  @click.native="closeMenu"
+                />
+                <a
+                  v-if="!currentUser && isCurrentMenuShowed"
+                  href="#"
+                  @click.prevent="closeMenu"
+                  class="account-text block w-100 py20 cl-accent no-underline fs-medium-small"
+                >
+                  {{ $t('My account') }}
+                </a>
+              </div>
+              <div class="col-xs-2 wishlist">
+                <wishlist-icon class="h-100 bg-cl-primary icon pointer" />
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -218,7 +224,7 @@ a, button {
 }
 
 .account-icon {
-  padding: 0 2% 0 25px;
+  padding: 0 2% 0 10%;
 }
 
 .list-row, .list-items {
@@ -308,10 +314,19 @@ a, button {
       }
     }
   }
+}
 
-  .my-account {
-    background: #EEEEEE;
-  }
+.account-tab {
+  width: 100%;
+}
 
+.my-account {
+  display: flex;
+  align-items: center;
+}
+
+.wishlist {
+  display: flex;
+  justify-content: center;
 }
 </style>
