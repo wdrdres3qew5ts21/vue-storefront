@@ -5,7 +5,7 @@
       class="cl-secondary"
       v-model="sortby"
       @change="changeOrder">
-      <option selected="selected" disabled value="">{{ $t('Sort By') }}</option>
+      <option selected="selected" disabled hidden value="">{{ $t('Sort By') }}</option>
       <option v-for="(option, label) in sortByAttribute" :disabled="sortby === option" :value="option" :key="option" >{{ $t(label) }}</option>
     </select>
   </div>
@@ -19,33 +19,34 @@ export default {
 </script>
 <style lang="scss" scoped>
     @import '~theme/css/base/text';
-    @import '~theme/css/variables/colors';
-    @import '~theme/css/helpers/functions/color';
-    $color-tertiary: color(tertiary);
     .sort-by {
-        display: inline-flex;
-        position: relative;
-        border-bottom: 1px solid $color-tertiary;
-        select {
-            @extend .h4;
-            font-size: 14px;
-            border: none;
-            width: 100%;
-            border-radius: 0;
-            background-color: transparent;
-            margin-right: 0;
-            appearance: none;
-            &:focus {
-                outline: none;
-            }
-        }
-        &__icon {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
+      display: inline-flex;
+      height: 30px;
+      position: relative;
+      border-bottom: 3px solid #EEEEEE;
+      select {
+          @extend .h4;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 19px;
+          letter-spacing: 0.5px;
+          color: #C5C5C5;
+          border: none;
+          width: 100%;
+          border-radius: 0;
+          background-color: transparent;
+          margin-right: 0;
+          &:focus {
+              outline: none;
+          }
+      }
+      &__icon {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+      }
     }
     @media (max-width: 770px) {
       .sort-by {

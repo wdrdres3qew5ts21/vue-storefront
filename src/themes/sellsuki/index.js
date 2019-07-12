@@ -7,7 +7,7 @@ import '@vue-storefront/core/lib/passive-listeners'
 import { RouterManager } from '@vue-storefront/core/lib/router-manager'
 import { once } from '@vue-storefront/core/helpers'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faShoppingBag, faSearch, faBars, faUserCircle, faChevronRight, faChevronLeft, faTimes, faTrashAlt, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingBag, faSearch, faBars, faUserCircle, faChevronRight, faChevronLeft, faTimes, faTrashAlt, faCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // import { faHeart } from '@fortawesome/free-regular-svg-icons'
 
@@ -15,7 +15,7 @@ once('__VUE_EXTEND_DROPPOINT_VPB__', () => {
   Vue.use(VueProgressBar)
 })
 
-library.add(faShoppingBag, faSearch, faBars, faUserCircle, faChevronLeft, faChevronRight, faTimes, faTrashAlt, faCircle)
+library.add(faShoppingBag, faSearch, faBars, faUserCircle, faChevronLeft, faChevronRight, faTimes, faTrashAlt, faCircle, faPlus)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

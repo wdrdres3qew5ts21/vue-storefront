@@ -8,7 +8,7 @@
     </div>
     <div class="col-xs flex start-xs between-sm details">
       <div>
-        <div class="serif name">
+        <div class="name">
           {{ product.name | htmlDecode }}
         </div>
         <div class="h6 cl-bg-tertiary pt3 sku" data-testid="productSku">
@@ -24,29 +24,29 @@
           :min="1"
         />
         <div class="prices" v-if="!displayItemDiscounts">
-          <span class="serif cl-error price" v-if="product.special_price">
+          <span class="cl-error price" v-if="product.special_price">
             {{ product.priceInclTax * product.qty | price }}&nbsp;
           </span>
-          <span class="h6 serif price" v-if="product.special_price">
+          <span class="h6 price" v-if="product.special_price">
             {{ product.originalPriceInclTax * product.qty | price }}
           </span>
-          <span class="serif price" v-if="!product.special_price" data-testid="productPrice">
+          <span class="price" v-if="!product.special_price" data-testid="productPrice">
             {{ product.priceInclTax * product.qty | price }}
           </span>
         </div>
         <div class="prices" v-else-if="product.totals">
-          <span class="serif cl-error price" v-if="product.totals.discount_amount">
+          <span class="cl-error price" v-if="product.totals.discount_amount">
             {{ product.totals.row_total_incl_tax - product.totals.discount_amount | price }}&nbsp;
           </span>
-          <span class="serif price" v-if="product.totals.discount_amount">
+          <span class="price" v-if="product.totals.discount_amount">
             {{ product.totals.row_total_incl_tax | price }}
           </span>
-          <span class="serif price" v-if="!product.totals.discount_amount">
+          <span class="price" v-if="!product.totals.discount_amount">
             {{ product.totals.row_total_incl_tax | price }}
           </span>
         </div>
         <div class="prices" v-else>
-          <span class="serif price">
+          <span class="price">
             {{ product.regular_price * product.qty | price }}
           </span>
         </div>
