@@ -1,63 +1,77 @@
 <template>
   <div class="sidebar">
     <div class="sidebar__header">
-      <p class="filter"> {{ $t('Filter') }} </p>
+      <p class="filter-heading"> {{ $t('Filter') }} </p>
     </div>
     <p class="amount" v-if="numberOfActiveFilters() === 0">NO FILTER SELECTED</p>
     <p class="amount" v-else>{{ numberOfActiveFilters() }} FILTER SELECTED</p>
     <hr>
     <div
+      class="filter-list"
       v-for="(filter, filterIndex) in availableFilters"
       :key="filterIndex"
     >
-      <h5>
-        {{ $t(filterIndex + '_filter') }}
-      </h5>
-
-      <div v-if="filterIndex==='color'">
-        <color-selector
-          context="category"
-          code="color"
-          v-for="(color, index) in filter"
-          :key="index"
-          :id="color.id"
-          :label="color.label"
-        />
+      <div class="row filter-title" @click="showFilter(filterIndex)">
+        <p class="filter-name">
+          {{ $t(filterIndex + '_filter') }}
+        </p>
+        <div class="expand-btn" v-if="expandView(filterIndex)">
+          <p class="expand-txt">
+            + VIEW MORE
+          </p>
+        </div>
+        <div class="expand-btn" v-else>
+          <p class="expand-txt">
+            - VIEW LESS
+          </p>
+        </div>
       </div>
-      <div v-else-if="filterIndex==='size'">
-        <size-selector
-          context="category"
-          code="size"
-          class="size-select mr10 mb10"
-          v-for="(size, index) in sortById(filter)"
-          :key="index"
-          :id="size.id"
-          :label="size.label"
-        />
-      </div>
-      <div v-else-if="filterIndex==='price'">
-        <price-selector
-          context="category"
-          class="price-select mb10 block"
-          code="price"
-          v-for="(price, index) in filter"
-          :key="index"
-          :id="price.id"
-          :from="price.from"
-          :to="price.to"
-          :content="price.label"
-        />
-      </div>
-      <div v-else class="sidebar__inline-selecors">
-        <generic-selector
-          context="category"
-          class="mr10 mb10 block"
-          :code="filterIndex"
-          v-for="(option, index) in filter"
-          :key="index"
-          :id="option.id"
-          :label="option.label"
-        />
+      <div class="row">
+        <div class="filter" v-if="filterIndex==='color' && showColor">
+          <color-selector
+            context="category"
+            code="color"
+            v-for="(color, index) in filter"
+            :key="index"
+            :id="color.id"
+            :label="color.label"
+          />
+        </div>
+        <div class="filter" v-else-if="filterIndex==='size' && showSize">
+          <size-selector
+            context="category"
+            code="size"
+            class="size-select"
+            v-for="(size, index) in sortById(filter)"
+            :key="index"
+            :id="size.id"
+            :label="size.label"
+          />
+        </div>
+        <div class="filter" v-else-if="filterIndex==='price' && showPrice">
+          <price-selector
+            context="category"
+            class="price-select mb10 block"
+            code="price"
+            v-for="(price, index) in filter"
+            :key="index"
+            :id="price.id"
+            :from="price.from"
+            :to="price.to"
+            :content="price.label"
+          />
+        </div>
+        <div class="filter sidebar__inline-selecors" v-else-if="showGeneric">
+          <generic-selector
+            context="category"
+            class="mr10 mb10 block"
+            :code="filterIndex"
+            v-for="(option, index) in filter"
+            :key="index"
+            :id="option.id"
+            :label="option.label"
+          />
+        </div>
       </div>
     </div>
     <!-- add the custom controls to other available filters set in config.products.defaultFilters; must be numeric field in ES
@@ -93,9 +107,39 @@ export default {
     GenericSelector
   },
   mixins: [Sidebar],
+  data () {
+    return {
+      showSize: false,
+      showColor: false,
+      showPrice: false,
+      showGeneric: false
+    }
+  },
   methods: {
     numberOfActiveFilters () {
       return Object.keys(this.activeFilters).length
+    },
+    showFilter (filterIndex) {
+      if (filterIndex === 'color') {
+        this.showColor = !this.showColor
+      } else if (filterIndex === 'size') {
+        this.showSize = !this.showSize
+      } else if (filterIndex === 'price') {
+        this.showPrice = !this.showPrice
+      } else {
+        this.showGeneric = !this.showGeneric
+      }
+    },
+    expandView (filterIndex) {
+      if (filterIndex === 'color') {
+        return this.showColor
+      } else if (filterIndex === 'size') {
+        return this.showSize
+      } else if (filterIndex === 'price') {
+        return this.showPrice
+      } else {
+        return this.showGeneric
+      }
     }
   }
 }
@@ -107,7 +151,7 @@ export default {
   color: #404040;
 }
 
-.filter {
+.filter-heading {
   text-transform: uppercase;
   font-weight: 800;
   font-size: 25px;
@@ -115,8 +159,30 @@ export default {
   letter-spacing: 0.1em;
 }
 
+.filter-title {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.expand-txt {
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+}
+
+.filter-name {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #404040;
+}
+
 .amount {
   font-size: 14px;
+  font-weight: normal;
   line-height: 19px;
   letter-spacing: 0.1em;
   margin: 3% 0;
@@ -124,6 +190,7 @@ export default {
 
 hr {
   opacity: 0.4;
+  margin-bottom: 0;
 }
 
 .sidebar {
@@ -137,5 +204,18 @@ hr {
   &__inline-selecors {
     display: flex;
   }
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  padding: 4% 7%;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 </style>

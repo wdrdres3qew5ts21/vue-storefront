@@ -1,9 +1,6 @@
 <template>
   <button
-    class="
-      p0 bg-cl-primary brdr-1 brdr-cl-primary
-      brdr-square h5 cl-tertiary size-selector
-    "
+    class="bg-cl-primary size-selector"
     :class="{ active: active }"
     @click="switchFilter(id, label)"
     :aria-label="$t('Select size ') + label"
@@ -21,35 +18,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
-  @import '~theme/css/helpers/functions/color';
-  $color-active: color(secondary);
-  $color-disabled: color(secondary, $colors-border);
-
   .size-selector {
-    width: 40px;
+    text-align: left;
     height: 40px;
-
-    &:hover,
-    &:focus {
-      border-width: 2px;
-    }
+    border: none;
+    border-bottom: 0.5px solid #EEEEEE;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    color: #C5C5C5;
 
     &.active {
-      border-color: $color-active;
-      border-width: 2px;
-      color: $color-active;
-    }
-
-    &:disabled {
-      border-color: $color-disabled;
-      color: $color-disabled;
-      cursor: not-allowed;
-
-      &:hover,
-      &:after {
-        border-width: 1px;
-      }
+      color: #404040;
     }
   }
 </style>
