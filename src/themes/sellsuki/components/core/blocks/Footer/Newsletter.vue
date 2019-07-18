@@ -1,5 +1,5 @@
 <template>
-  <div class="newsletter py25 px15 bg-cl-secondary">
+  <div class="newsletter py25 px15">
     <div class="container">
       <div class="newsletter-content m0 row middle-sm start-md">
         <div class="col-md-9 col-xs-12">
@@ -72,6 +72,7 @@ export default {
 
   .newsletter {
     padding-bottom: 0;
+    background: #EEEEEE;
   }
 
   p {

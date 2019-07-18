@@ -19,17 +19,21 @@ export default {
 
 <style lang="scss" scoped>
   .size-selector {
+    font-family: 'Nunito Sans';
     text-align: left;
     height: 40px;
     border: none;
     border-bottom: 0.5px solid #EEEEEE;
+    letter-spacing: 0.1em;
+    padding-left: 20px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: normal;
     width: 100%;
     color: #C5C5C5;
 
     &.active {
       color: #404040;
+      font-weight: 800;
     }
   }
 </style>

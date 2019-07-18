@@ -17,17 +17,17 @@
         </p>
         <div class="expand-btn" v-if="expandView(filterIndex)">
           <p class="expand-txt">
-            + VIEW MORE
+            - VIEW LESS
           </p>
         </div>
         <div class="expand-btn" v-else>
           <p class="expand-txt">
-            - VIEW LESS
+            + VIEW MORE
           </p>
         </div>
       </div>
       <div class="row">
-        <div class="filter" v-if="filterIndex==='color' && showColor">
+        <div class="filter" v-show="filterIndex==='color' && showColor">
           <color-selector
             context="category"
             code="color"
@@ -37,7 +37,7 @@
             :label="color.label"
           />
         </div>
-        <div class="filter" v-else-if="filterIndex==='size' && showSize">
+        <div class="filter" v-show="filterIndex==='size' && showSize">
           <size-selector
             context="category"
             code="size"
@@ -48,7 +48,7 @@
             :label="size.label"
           />
         </div>
-        <div class="filter" v-else-if="filterIndex==='price' && showPrice">
+        <div class="filter" v-show="filterIndex==='price' && showPrice">
           <price-selector
             context="category"
             class="price-select mb10 block"
@@ -61,7 +61,7 @@
             :content="price.label"
           />
         </div>
-        <div class="filter sidebar__inline-selecors" v-else-if="showGeneric">
+        <div class="filter sidebar__inline-selecors" v-show="showGeneric">
           <generic-selector
             context="category"
             class="mr10 mb10 block"

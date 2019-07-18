@@ -1,5 +1,6 @@
 <template>
   <div class="media-gallery-carousel">
+    <wishlist-button class="top-right" :product="product" />
     <carousel
       :per-page="1"
       :mouse-drag="false"
@@ -75,6 +76,7 @@ import { onlineHelper } from '@vue-storefront/core/helpers'
 export default {
   name: 'ProductGalleryCarousel',
   components: {
+    'WishlistButton': () => import(/* webpackChunkName: "wishlist" */'theme/components/core/blocks/Wishlist/AddToWishlist'),
     Carousel,
     Slide,
     ProductVideo
@@ -89,6 +91,10 @@ export default {
       required: true
     },
     configuration: {
+      type: Object,
+      required: true
+    },
+    product: {
       type: Object,
       required: true
     }
@@ -206,6 +212,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.top-right {
+  z-index: 1;
+  position: absolute;
+  top: 18px;
+  right: 7px;
+  width: 80px;
+  align-items: center;
+}
+
 .media-gallery-carousel {
   position: relative;
   text-align: center;

@@ -1,6 +1,6 @@
 <template>
   <button type="button" class="inline-flex brdr-none" @click="goBack" data-testid="returnButton">
-    <i class="material-icons">keyboard_backspace</i>
+    <font-awesome-icon class="left" icon="arrow-left" size="lg"/>
   </button>
 </template>
 
@@ -11,3 +11,9 @@ export default {
   mixins: [ReturnIcon]
 }
 </script>
+
+<style lang="scss" scoped>
+button {
+  background: white;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product w-100 pb20"
+    class="product w-100"
     v-observe-visibility="visibilityChanged"
   >
     <router-link
@@ -15,8 +15,6 @@
           class="product-image__content"
           :alt="product.name"
           src="../../assets/product.jpg"
-          height="300"
-          width="310"
           data-testid="productImage"
           @load="imageLoaded = true"
         >
@@ -27,20 +25,20 @@
           {{ product.name | htmlDecode }}
         </p>
         <span
-          class="price-original mr5 lh30 cl-secondary"
+          class="price-original price mr5 lh16"
           v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0 && !onlyImage"
         >
           {{ product.originalPriceInclTax | price }}
         </span>
         <span
-          class="price-special lh30 cl-accent weight-700"
+          class="price-special price lh16"
           v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
         >
           {{ product.priceInclTax | price }}
         </span>
 
         <span
-          class="lh30 cl-secondary"
+          class="lh16 price"
           v-if="!product.special_price && parseFloat(product.priceInclTax) > 0 && !onlyImage"
         >
           {{ product.priceInclTax | price }}
@@ -145,7 +143,7 @@ $color-white: color(white);
 }
 
 .product-image {
-  width: 202px;
+  width: 100%;
   overflow: hidden;
   height: 100%;
   min-height: 155px;
@@ -230,7 +228,14 @@ $color-white: color(white);
 }
 
 .product-content {
-  padding: 0;
-  width: 100%;
+  padding: 0 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: 14px;
+  color: #A71538;
 }
 </style>
