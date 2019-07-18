@@ -230,7 +230,7 @@ $color-white: color(white);
 }
 
 .product-content {
-  padding: 0 20px;
+  padding: 0;
   width: 100%;
 }
 </style>

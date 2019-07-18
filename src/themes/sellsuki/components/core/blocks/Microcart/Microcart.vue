@@ -32,7 +32,7 @@
     <ul v-if="productsInCart.length" class="bg-cl-primary m0 px40 pb40 products">
       <product v-for="product in productsInCart" :key="product.sku" :product="product" />
     </ul>
-    <div v-if="productsInCart.length" class="summary px40 cl-accent serif">
+    <div v-if="productsInCart.length" class="summary px40 cl-accent">
       <p class="m0 pt30 mb10 weight-400 summary-heading">
         BASKET SUMMARY
       </p>
@@ -51,7 +51,7 @@
       </div>
       <div class="row summary-details">
         <div v-if="OnlineOnly" class="col-xs-5">
-          <div class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent">
+          <div class="p0 brdr-none fs-medium-small cl-accent bg-cl-transparent">
             Discount code
           </div>
         </div>

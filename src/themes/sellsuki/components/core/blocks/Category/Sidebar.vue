@@ -1,15 +1,11 @@
 <template>
   <div class="sidebar">
-    <h4 class="sidebar__header">
-      <span> {{ $t('Filter') }} </span>
-      <button
-        class="no-outline brdr-none py15 px40 bg-cl-mine-shaft :bg-cl-th-secondary ripple h5 cl-white sans-serif"
-        @click="resetAllFilters"
-        v-show="hasActiveFilters"
-      >
-        {{ $t('Clear') }}
-      </button>
-    </h4>
+    <div class="sidebar__header">
+      <p class="filter"> {{ $t('Filter') }} </p>
+    </div>
+    <p class="amount" v-if="numberOfActiveFilters() === 0">NO FILTER SELECTED</p>
+    <p class="amount" v-else>{{ numberOfActiveFilters() }} FILTER SELECTED</p>
+    <hr>
     <div
       v-for="(filter, filterIndex) in availableFilters"
       :key="filterIndex"
@@ -96,11 +92,40 @@ export default {
     PriceSelector,
     GenericSelector
   },
-  mixins: [Sidebar]
+  mixins: [Sidebar],
+  methods: {
+    numberOfActiveFilters () {
+      return Object.keys(this.activeFilters).length
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+* {
+  font-family: 'Nunito Sans';
+  color: #404040;
+}
+
+.filter {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 34px;
+  letter-spacing: 0.1em;
+}
+
+.amount {
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: 0.1em;
+  margin: 3% 0;
+}
+
+hr {
+  opacity: 0.4;
+}
+
 .sidebar {
   &__header {
     display: flex;

@@ -146,7 +146,7 @@ $color-icon-hover: color(secondary, $colors-background);
     position: fixed;
     z-index: 2;
     background: none;
-    border: none;
+    border-bottom: 1px solid #EEEEEE;
     transition: top 0.2s ease-in-out;
     &.is-visible {
       top: 0;

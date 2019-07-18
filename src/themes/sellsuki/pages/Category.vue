@@ -1,38 +1,35 @@
 <template>
   <div id="category">
-    <header class="bg-cl-secondary py35 pl20">
-      <div class="container">
-        <breadcrumbs :routes="breadcrumbs.routes" :active-route="category.name" />
-        <div class="row middle-sm">
-          <h1 class="col-sm-9 category-title mb10"> {{ category.name }} </h1>
-          <div class="sorting col-sm-3 align-right"><sort-by /></div>
-        </div>
+    <header class="category-header row">
+      <div class="col-xs-6">
+        <breadcrumbs class="breadcrumbs" :routes="breadcrumbs.routes" :active-route="category.name" />
+        <p class="category-title"> {{ category.name }} </p>
+        <div class="sorting align-right"><sort-by /></div>
+        <p class="total">{{ productsTotal }} {{ $t('items') }}</p>
       </div>
-      <div class="container">
-        <div class="row m0">
-          <button
-            class="col-xs-5 mt25 mr15 p15 mobile-filters-button bg-cl-th-accent brdr-none cl-white h5 sans-serif fs-medium-small"
-            @click="openFilters"
-          >
-            {{ $t('Filters') }}
-          </button>
-          <div class="mobile-sorting col-xs-6 mt25"><sort-by /></div>
-        </div>
+      <div class="col-xs-6 filter-section">
+        <button
+          class="mobile-filters-button bg-cl-th-accent brdr-none cl-white sans-serif"
+          @click="openFilters"
+        >
+          <font-awesome-icon class="plus" icon="plus" size="md" style="color: #EEEEEE;"/>
+          {{ $t('Filters') }}
+        </button>
+        <div class="mobile-sorting mt10"><sort-by /></div>
       </div>
     </header>
-    <div class="container pb60">
+    <div class="container p0">
       <div class="row m0 pt15">
         <div class="col-md-3 start-xs category-filters">
           <sidebar :filters="filters.available"/>
         </div>
         <div class="col-md-3 start-xs mobile-filters" v-show="mobileFilters">
           <div class="close-container absolute w-100">
-            <i class="material-icons p15 close cl-accent" @click="closeFilters">close</i>
+            <font-awesome-icon class="p15" icon="times" size="lg" style="color: #C5C5C5;" @click="closeFilters"/>
           </div>
           <sidebar class="mobile-filters-body" :filters="filters.available"/>
         </div>
-        <p class="col-xs-12 hidden-md m0 px20 cl-secondary">{{ productsTotal }} {{ $t('items') }}</p>
-        <div class="col-md-9 pt20 px10 border-box products-list">
+        <div class="col-md-9 p0 border-box products-list">
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h4 data-testid="noProductsInfo">{{ $t('No products found!') }}</h4>
             <p>{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
@@ -105,17 +102,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  * {
+    font-family: 'Nunito Sans';
+  }
+
+  .category-header {
+    margin: 0 7%;
+    padding: 5% 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+  }
+
+  .plus {
+    padding-right: 8px;
+  }
+
+  .breadcrumbs {
+    margin: 5% 0 3% 0;
+  }
+
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
   .category-filters {
     width: 242px;
   }
 
   .mobile-filters {
+    background: white;
     display: none;
     overflow: auto;
   }
 
   .mobile-filters-button {
-    display: none;
+    display: flex;
+    justify-content: center;
+    width: 148px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15px;
+    text-align: center;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #EEEEEE;
   }
 
   .mobile-sorting {
@@ -123,7 +155,21 @@ export default {
   }
 
   .category-title {
-    line-height: 65px;
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 34px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #404040;
+  }
+
+  .total {
+    margin: 3% 0 0 0;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #404040;
   }
 
   @media (max-width: 64em) {
@@ -133,12 +179,6 @@ export default {
   }
 
   @media (max-width: 770px) {
-    .category-title {
-      margin: 0;
-      font-size: 36px;
-      line-height: 40px;
-    }
-
     .products-list {
       width: 100%;
       max-width: none;
@@ -146,11 +186,6 @@ export default {
 
     .mobile-filters {
       display: block;
-    }
-
-    .mobile-filters-button {
-      display: block;
-      height: 45px;
     }
 
     .sorting {
@@ -171,7 +206,6 @@ export default {
 
     .mobile-filters {
       position: fixed;
-      background-color: #F2F2F2;
       z-index: 5;
       padding: 0 40px;
       left: 0;
@@ -187,6 +221,8 @@ export default {
   }
 
   .close-container {
+    display: flex;
+    justify-content: flex-end;
     left: 0;
   }
 

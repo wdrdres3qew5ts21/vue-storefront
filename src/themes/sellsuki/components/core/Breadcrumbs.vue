@@ -5,9 +5,6 @@
         {{ link.name | htmlDecode }}
       </router-link> /
     </span>
-    <span class="cl-mine-shaft">
-      {{ activeRoute | htmlDecode }}
-    </span>
   </div>
 </template>
 
@@ -18,3 +15,14 @@ export default {
   mixins: [Breadcrumbs]
 }
 </script>
+
+<style lang="scss" scoped>
+* {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: 0.1em;
+  color: #C5C5C5;
+}
+</style>
