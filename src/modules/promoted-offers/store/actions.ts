@@ -8,6 +8,7 @@ const actions: ActionTree<PromotedOffersState, RootState> = {
   async updatePromotedOffers ({commit, rootState}, data) {
     try {
       const promotedOffersModule = await axios.get('http://localhost:8080/api/ext/backend-api/collections')
+      console.log(promotedOffersModule.data)
       commit('updatePromotedOffers', promotedOffersModule.data)
     } catch (err) {
       Logger.debug('Unable to load promotedOffers' + err)()

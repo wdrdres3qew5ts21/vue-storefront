@@ -71,7 +71,6 @@
                     <div v-if="option.label == 'Color'">
                       <color-selector
                         v-for="(c, i) in options[option.attribute_code]"
-                        v-if="isOptionAvailable(c)"
                         :key="i"
                         :id="c.id"
                         :label="c.label"
@@ -83,7 +82,6 @@
                     <div class="sizes" v-else-if="option.label == 'Size'">
                       <size-selector
                         v-for="(s, i) in options[option.attribute_code]"
-                        v-if="isOptionAvailable(s)"
                         :key="i"
                         :id="s.id"
                         :label="s.label"
@@ -97,7 +95,6 @@
                     <div :class="option.attribute_code" v-else>
                       <generic-selector
                         v-for="(s, i) in options[option.attribute_code]"
-                        v-if="isOptionAvailable(s)"
                         :key="i"
                         :id="s.id"
                         :label="s.label"
@@ -225,7 +222,7 @@
       type="upsell"
       :heading="$t('We found other products you might like')"
     />
-    <promoted-offers single-banner />
+    <!-- <promoted-offers single-banner /> -->
     <related-products type="related" />
   </div>
 </template>
