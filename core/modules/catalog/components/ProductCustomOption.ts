@@ -31,6 +31,9 @@ export const ProductCustomOption = {
     this.$bus.$on('filter-reset', this.filterReset)
     this.$bus.$on('filter-changed-' + this.context, this.filterChanged)
   },
+  mounted() {
+    console.log(this.label)
+  },
   beforeDestroy () {
     this.$bus.$off('filter-reset', this.filterReset)
     this.$bus.$off('filter-changed-' + this.context, this.filterChanged)
