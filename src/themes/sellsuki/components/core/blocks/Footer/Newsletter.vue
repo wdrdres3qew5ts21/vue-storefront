@@ -76,7 +76,6 @@ export default {
   }
 
   p {
-    font-family: Nunito Sans;
     font-style: normal;
     line-height: 19px;
     text-align: center;

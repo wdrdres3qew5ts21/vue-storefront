@@ -147,7 +147,6 @@ export default {
 
 <style lang="scss" scoped>
 * {
-  font-family: 'Nunito Sans';
   color: #404040;
 }
 

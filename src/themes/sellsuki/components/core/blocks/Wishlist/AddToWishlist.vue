@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="isOnWishlist ? removeFromWishlist(product) : addToWishlist(product); changeColor()" class="p0 inline-flex middle-xs bg-cl-transparent brdr-none action pointer" type="button" data-testid="addToWishlist">
-      <i class="pr5 material-icons" :style="{ color: iconColor }">{{ favoriteIcon }}</i>
+      <i class="material-icons" :style="{ color: iconColor }">{{ favoriteIcon }}</i>
     </button>
     <p v-if="!isOnWishlist">
       Add to Wish List
@@ -29,8 +29,8 @@ export default {
       iconColor: '#404040'
     }
   },
-  methods: {
-    changeColor () {
+  watch: {
+    favoriteIcon: function () {
       if (this.favoriteIcon === 'favorite') {
         this.iconColor = '#A71538'
       } else {
