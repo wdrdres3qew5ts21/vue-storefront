@@ -1,18 +1,18 @@
 <template>
-  <div class="product-listing row m0 center-xs start-md">
+  <div v-if="page === 'product-listing'" class="product-listing row m0 start-md">
     <div
-      v-for="(product, key) in products"
+      v-for="(product) in products"
       :key="product.id"
-      class="col-xs-6 flex p0"
-      :class="['col-md-' + (12/columns)%10, wide(product.sale, product.new, key)]"
+      class="product flex p0"
     >
       <product-tile :product="product"/>
     </div>
+  </div>
+  <div v-else class="category-listing row m0 start-md">
     <div
-      v-for="(product, key) in products"
+      v-for="(product) in products"
       :key="product.id"
-      class="col-xs-6 flex p0"
-      :class="['col-md-' + (12/columns)%10, wide(product.sale, product.new, key)]"
+      class="product flex p0"
     >
       <product-tile :product="product"/>
     </div>
@@ -21,7 +21,6 @@
 
 <script>
 import ProductTile from 'theme/components/core/ProductTile'
-let lastHero = 0
 export default {
   name: 'ProductListing',
   components: {
@@ -35,18 +34,36 @@ export default {
     columns: {
       type: [Number, String],
       required: true
-    }
-  },
-  methods: {
-    wide (isOnSale, isNew, index) {
-      let deltaCondition = index > 0 && ((index - 1) - lastHero) % 2 === 0
-      // last image always shouldn't be big, we also need to count from last promoted to check if it will look ok
-      let isHero = ((isOnSale === '1' || isNew === '1') && deltaCondition) || (index === this.products.length - 1 && (index - lastHero) % 2 !== 0)
-      if (isHero) {
-        lastHero = index
-      }
-      return isHero ? 'col-xs-12' : 'col-xs-6'
+    },
+    page: {
+      type: String,
+      required: false,
+      default: 'category'
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.product-listing {
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow-x: auto;
+
+  .product {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+}
+
+.category-listing {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.product {
+  @media (max-width: 767px) {
+    max-width: 202px;
+  }
+}
+</style>

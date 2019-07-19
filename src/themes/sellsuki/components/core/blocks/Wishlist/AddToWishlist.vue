@@ -1,13 +1,15 @@
 <template>
-  <button @click="isOnWishlist ? removeFromWishlist(product) : addToWishlist(product)" class="p0 inline-flex middle-xs bg-cl-transparent brdr-none action h5 pointer cl-secondary" type="button" data-testid="addToWishlist">
-    <i class="pr5 material-icons">{{ favoriteIcon }}</i>
-    <template v-if="!isOnWishlist">
-      {{ $t('Add to favorite') }}
-    </template>
-    <template v-else>
-      {{ $t('Remove') }}
-    </template>
-  </button>
+  <div>
+    <button @click="isOnWishlist ? removeFromWishlist(product) : addToWishlist(product); changeColor()" class="p0 inline-flex middle-xs bg-cl-transparent brdr-none action pointer" type="button" data-testid="addToWishlist">
+      <i class="material-icons" :style="{ color: iconColor }">{{ favoriteIcon }}</i>
+    </button>
+    <p v-if="!isOnWishlist">
+      Add to Wish List
+    </p>
+    <p v-else>
+      Added!
+    </p>
+  </div>
 </template>
 
 <script>
@@ -21,6 +23,40 @@ export default {
     favoriteIcon () {
       return this.isOnWishlist ? 'favorite' : 'favorite_border'
     }
+  },
+  data () {
+    return {
+      iconColor: '#404040'
+    }
+  },
+  watch: {
+    favoriteIcon: function () {
+      if (this.favoriteIcon === 'favorite') {
+        this.iconColor = '#A71538'
+      } else {
+        this.iconColor = '#404040'
+      }
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.material-icons {
+  color: #404040;
+}
+
+p {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 14px;
+  color: #404040;
+}
+</style>

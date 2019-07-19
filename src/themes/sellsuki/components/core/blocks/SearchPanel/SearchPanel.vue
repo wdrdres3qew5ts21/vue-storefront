@@ -174,8 +174,6 @@ export default {
   .product {
     box-sizing: border-box;
     width: 33.33%;
-    padding-left: map-get($grid-gutter-widths, lg) / 2;
-    padding-right: map-get($grid-gutter-widths, lg) / 2;
 
     @media #{$media-xs} {
       width: 50%;

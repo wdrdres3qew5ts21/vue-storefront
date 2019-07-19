@@ -84,7 +84,6 @@ export default {
 $break-large: 1030px;
 
 * {
-  font-family: Nunito Sans;
   font-style: normal;
   font-weight: normal;
 }

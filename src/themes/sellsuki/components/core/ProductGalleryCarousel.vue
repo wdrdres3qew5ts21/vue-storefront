@@ -1,13 +1,10 @@
 <template>
   <div class="media-gallery-carousel">
+    <wishlist-button class="top-right" :product="product" />
     <carousel
       :per-page="1"
-      :mouse-drag="false"
-      :navigation-enabled="true"
-      pagination-active-color="#828282"
-      pagination-color="transparent"
-      navigation-next-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_right</i>"
-      navigation-prev-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_left</i>"
+      :mouse-drag="true"
+      :pagination-enabled="false"
       ref="carousel"
       :speed="carouselTransitionSpeed"
       @pageChange="pageChange"
@@ -75,6 +72,7 @@ import { onlineHelper } from '@vue-storefront/core/helpers'
 export default {
   name: 'ProductGalleryCarousel',
   components: {
+    'WishlistButton': () => import(/* webpackChunkName: "wishlist" */'theme/components/core/blocks/Wishlist/AddToWishlist'),
     Carousel,
     Slide,
     ProductVideo
@@ -89,6 +87,10 @@ export default {
       required: true
     },
     configuration: {
+      type: Object,
+      required: true
+    },
+    product: {
       type: Object,
       required: true
     }
@@ -206,6 +208,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.top-right {
+  z-index: 1;
+  position: absolute;
+  top: 18px;
+  right: 7px;
+  width: 80px;
+  align-items: center;
+}
+
 .media-gallery-carousel {
   position: relative;
   text-align: center;

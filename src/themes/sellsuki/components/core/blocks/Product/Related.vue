@@ -1,17 +1,17 @@
 <template>
   <section
-    class="py20 new-collection container px15"
+    class="new-collection container"
     v-if="product.related[type] && product.related[type].length > 0"
   >
     <div>
       <header class="col-md-12">
-        <h2 class="align-center cl-accent">
+        <p class="heading cl-accent">
           {{ heading }}
-        </h2>
+        </p>
       </header>
     </div>
-    <div class="row center-xs">
-      <product-listing columns="4" :products="product.related[type]" />
+    <div class="prodcuts row m0">
+      <product-listing page="product-listing" columns="4" :products="product.related[type]" />
     </div>
   </section>
 </template>
@@ -97,3 +97,29 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.new-collection {
+  background: #EEEEEE;
+  padding: 20px 0;
+}
+
+.products {
+  width: 100%;
+  margin: 0;
+}
+
+header {
+  padding: 0;
+}
+
+.heading {
+  margin: 0 7% 6% 7%;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: #404040;
+}
+</style>

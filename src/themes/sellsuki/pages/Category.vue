@@ -34,7 +34,7 @@
             <h4 data-testid="noProductsInfo">{{ $t('No products found!') }}</h4>
             <p>{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
           </div>
-          <product-listing columns="3" :products="products" />
+          <product-listing columns="2" :products="products" />
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ export default {
     }
 
     .product-listing {
-      justify-content: center;;
+      justify-content: space-between;;
     }
 
     .mobile-filters {

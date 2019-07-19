@@ -12,6 +12,7 @@
         <product-gallery-carousel
           v-if="showProductGalleryCarousel"
           :gallery="gallery"
+          :product="product"
           :configuration="configuration"
           :product-name="product.name"
           @toggle="openOverlay"
@@ -79,7 +80,7 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   min-height: calc(90vw * 1.1);
   background-image: url('/assets/placeholder.svg');
   background-repeat: no-repeat;

@@ -129,7 +129,6 @@ export default {
 
 <style lang="scss" scoped>
   div {
-    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

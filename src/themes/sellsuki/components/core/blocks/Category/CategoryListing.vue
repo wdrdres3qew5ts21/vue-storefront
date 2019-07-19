@@ -59,7 +59,6 @@ export default {
 
     .title {
       color: #EEEEEE;
-      font-family: Nunito Sans;
       font-style: normal;
       font-weight: 1000;
       font-size: 30px;
@@ -71,7 +70,6 @@ export default {
     }
 
     .category-title {
-      font-family: Nunito Sans;
       font-style: normal;
       font-weight: 600;
       font-size: 25px;
