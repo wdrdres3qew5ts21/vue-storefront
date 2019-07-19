@@ -19,7 +19,7 @@ export const UserShippingDetails = {
       countries: Countries,
       useCompanyAddress: false,
       currentUser: Object.assign({}, this.$store.state.user.current),
-      isEdited: false,
+      shippingEdit: false,
       remainInEditMode: false
     }
   },
@@ -44,7 +44,7 @@ export const UserShippingDetails = {
       this.shippingDetails = this.getShippingDetails()
     },
     edit () {
-      this.isEdited = true
+      this.shippingEdit = true
     },
     objectsEqual (a, b) {
       const aProps = Object.keys(a)
@@ -117,9 +117,6 @@ export const UserShippingDetails = {
         this.shippingDetails = this.getShippingDetails()
         this.useCompanyAddress = false
         this.remainInEditMode = false
-      }
-      if (!this.remainInEditMode) {
-        this.isEdited = false
       }
     },
     fillCompanyAddress () {

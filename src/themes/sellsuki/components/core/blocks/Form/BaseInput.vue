@@ -20,11 +20,30 @@
         @keyup="$emit('keyup', $event)"
       >
     </div>
-    <div class="relative" v-else>
+    <div class="relative wrapper" v-else-if="editPage === false">
       <input
         class="
-         w-100 border-box brdr-none brdr-bottom-1
-         brdr-cl-primary h4
+         w-100 input-section disable
+       "
+        :class="{pr30: type === 'password', empty: value === ''}"
+        :type="type === 'password' ? passType : type"
+        :name="name"
+        :autocomplete="autocomplete"
+        :value="value"
+        :autofocus="autofocus"
+        :ref="name"
+        @input="$emit('input', $event.target.value)"
+        @blur="$emit('blur')"
+        @keyup.enter="$emit('keyup.enter', $event.target.value)"
+        @keyup="$emit('keyup', $event)"
+        readonly="true"
+      >
+      <label>{{ placeholder }}</label>
+    </div>
+    <div class="relative wrapper" v-else>
+      <input
+        class="
+         w-100 input-section
        "
         :class="{pr30: type === 'password', empty: value === ''}"
         :type="type === 'password' ? passType : type"
@@ -82,6 +101,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    editPage: {
+      type: Boolean,
+      required: false,
+      default: true
     },
     value: {
       type: [String, Number],
@@ -176,6 +200,29 @@ export default {
 
       border: none;
       border-bottom: 3px solid #C5C5C5;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+
+    .input-section {
+      color: #404040;
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 19px;
+
+      margin-bottom: 10px;
+      margin-top: 15px;
+      height: 20px;
+      width: 100%;
+
+      border: none;
+      border-bottom: 3px solid #EEEEEE;
+    }
+
+    .disable {
+      color: #C5C5C5;
     }
   }
 
