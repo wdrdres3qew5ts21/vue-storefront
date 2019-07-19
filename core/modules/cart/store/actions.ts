@@ -128,12 +128,14 @@ const actions: ActionTree<CartState, RootState> = {
       }
     }
   },
+  // update item หลังจากที่ทำการนำของเข้าไปในตระกร้าแล้วแต่ว่าต้องไปเช็คอีกทีหนึ่ง
   serverUpdateItem (context, cartItem) {
     if (!cartItem.quoteId) {
       cartItem = Object.assign(cartItem, { quoteId: context.state.cartServerToken })
     }
-
-    return TaskQueue.execute({ url: config.cart.updateitem_endpoint, // sync the cart
+    console.log("serverUpdate Item : cart !!!!")
+    console.log(cartItem)
+    return TaskQueue.execute({ url: config.cart.updateitem_endpoint, // sync the cart (จากระบบของ magento เอง endpoint นี้ไปเรียก vue-storefront-api)
       payload: {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -141,7 +143,7 @@ const actions: ActionTree<CartState, RootState> = {
         body: JSON.stringify({
           cartItem: cartItem
         })
-      },
+      },// ไปเรียก function เกือบข้างล่างสุดเพื่อแสดงว่าสุดท้าย error หรือไม่บรรทัด 700 กว่าๆ 
       callback_event: 'store:cart/servercartAfterItemUpdated'
     }).then(task => {
       // eslint-disable-next-line no-useless-return
@@ -535,6 +537,8 @@ const actions: ActionTree<CartState, RootState> = {
     }
   },
   servercartAfterPulled (context, event) {
+    console.log("server cart after pull")
+    console.log(event)
     if (event.resultCode === 200) {
       let diffLog = []
       let serverCartUpdateRequired = false
@@ -683,7 +687,10 @@ const actions: ActionTree<CartState, RootState> = {
       }
     }
   },
+  // เรียก function นี้หลังจากที่ทำการมาถึงขั้นตอนสุดท้ายแล้ว (ผ่านการ validate จาก backend magento)
   servercartAfterItemUpdated (context, event) {
+    console.log("servercartAfterItemUpdated !!!")
+    console.log(event)
     const originalCartItem = JSON.parse(event.payload.body).cartItem
     if (event.resultCode !== 200) {
       // TODO: add the strategy to configure behaviour if the product is (confirmed) out of the stock
