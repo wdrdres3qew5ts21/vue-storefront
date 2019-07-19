@@ -29,13 +29,21 @@ export default {
       iconColor: '#404040'
     }
   },
-  watch: {
-    favoriteIcon: function () {
+  methods: {
+    changeColor () {
       if (this.favoriteIcon === 'favorite') {
         this.iconColor = '#A71538'
       } else {
         this.iconColor = '#404040'
       }
+    }
+  },
+  mounted () {
+    this.changeColor()
+  },
+  watch: {
+    favoriteIcon: function () {
+      this.changeColor()
     }
   }
 }
