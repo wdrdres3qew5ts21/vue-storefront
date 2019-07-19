@@ -1,18 +1,15 @@
 <template>
   <div id="my_account">
-    <div class="py35 pl20">
+    <div class="pt35 pl20">
       <div class="container">
         <breadcrumbs
-          :routes="[{name: 'Homepage', route_link: '/'}]"
+          :routes="[{name: 'Home', route_link: '/'}, {name: 'My Account', route_link: '/'}]"
           active-route="My Account"
         />
-        <h1>
-          {{ $t('My Account') }}
-        </h1>
       </div>
     </div>
 
-    <div class="container pt45 pb70">
+    <div class="container py0">
       <div class="row px20 pt0">
         <div class="col-md-3 hidden-xs hidden-sm block">
           <nav class="static-menu serif h4 mb35">
@@ -37,11 +34,7 @@
 import MyAccount from '@vue-storefront/core/pages/MyAccount'
 import Breadcrumbs from '../components/core/Breadcrumbs'
 import MyProfile from '../components/core/blocks/MyAccount/MyProfile'
-import MyShippingDetails from '../components/core/blocks/MyAccount/MyShippingDetails'
-import MyNewsletter from '../components/core/blocks/MyAccount/MyNewsletter'
 import MyOrders from '../components/core/blocks/MyAccount/MyOrders'
-import MyOrder from '../components/core/blocks/MyAccount/MyOrder'
-import MyRecentlyViewed from '../components/core/blocks/MyAccount/MyRecentlyViewed'
 import NoSSR from 'vue-no-ssr'
 
 export default {
@@ -49,23 +42,14 @@ export default {
     return {
       navigation: [
         { title: this.$t('My profile'), link: '/my-account' },
-        { title: this.$t('My shipping details'), link: '/my-account/shipping-details' },
-        { title: this.$t('My newsletter'), link: '/my-account/newsletter' },
-        { title: this.$t('My orders'), link: '/my-account/orders' },
-        { title: this.$t('My loyalty card'), link: '#' },
-        { title: this.$t('My product reviews'), link: '#' },
-        { title: this.$t('My Recently viewed products'), link: '/my-account/recently-viewed' }
+        { title: this.$t('My orders'), link: '/my-account/orders' }
       ]
     }
   },
   components: {
     Breadcrumbs,
     MyProfile,
-    MyShippingDetails,
-    MyNewsletter,
     MyOrders,
-    MyOrder,
-    MyRecentlyViewed,
     'no-ssr': NoSSR
   },
   mixins: [MyAccount],

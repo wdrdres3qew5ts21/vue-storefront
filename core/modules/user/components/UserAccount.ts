@@ -23,7 +23,7 @@ export const UserAccount = {
       password: '',
       rPassword: '',
       addCompany: false,
-      isEdited: false,
+      accountEdit: false,
       remainInEditMode: false
     }
   },
@@ -54,7 +54,7 @@ export const UserAccount = {
       }
     },
     edit () {
-      this.isEdited = true
+      this.accountEdit = true
     },
     objectsEqual (a, b, excludedFields = []) {
       const aProps = Object.keys(a)
@@ -163,9 +163,6 @@ export const UserAccount = {
           this.addCompany = false
         }
         this.remainInEditMode = false
-      }
-      if (!this.remainInEditMode) {
-        this.isEdited = false
       }
     },
     getUserCompany () {
