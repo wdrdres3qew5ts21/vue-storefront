@@ -1,14 +1,11 @@
 <template>
-  <div class="mb35">
-    <!-- My shipping details body (edit mode) -->
-    <div class="row">
-      <!-- My shipping details header -->
-      <div class="lh30 flex end-md edit-section">
-        <p class="m0 mb5 shipping-details">
-          SHIPPING DETAILS
-        </p>
-        <font-awesome-icon class="circle" icon="edit" size="lg" style="color: #404040;" @click="editShipping"/>
-      </div>
+  <div class="row mb35">
+    <!-- My shipping details header -->
+    <div class="lh30 flex end-md edit-section">
+      <p class="m0 mb5 shipping-details">
+        SHIPPING DETAILS
+      </p>
+      <font-awesome-icon class="circle" icon="edit" size="lg" style="color: #404040;" @click="editShipping"/>
     </div>
     <template>
       <base-input
