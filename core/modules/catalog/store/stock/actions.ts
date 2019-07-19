@@ -13,7 +13,7 @@ const actions: ActionTree<StockState, RootState> = {
   /**
    * Reset current configuration and selected variatnts
    */
-  check (context, { product, qty = 1 }) {
+  checkVanila (context, { product, qty = 1 }) {
     return new Promise((resolve, reject) => {
       if (rootStore.state.config.stock.synchronize) {
         TaskQueue.queue({ url: rootStore.state.config.stock.endpoint + '/check?sku=' + encodeURIComponent(product.sku),
@@ -32,6 +32,33 @@ const actions: ActionTree<StockState, RootState> = {
       }
     })
   },
+
+  check (context, { product, qty = 1 }) {
+    return new Promise((resolve, reject) => {
+      // todo นำ sku จาก frontend ไปเช็คที่ backend ของakita ว่ามีสินค้าพร้อมขายจริงๆไหมและ return ค่าออกแบบ format magento
+      let mockSkuDatabase = ["0000100729-2-l-black","0000100729-2-xl-black","0000100729-2-xl-white","0000100729-2-l-white"]
+      let skuFrontend = encodeURIComponent(product.sku)
+      if( mockSkuDatabase.indexOf(encodeURIComponent(product.sku)) >=0  ){
+        skuFrontend = "NEON GENESIS T-SHIRT-BLACK-XL"
+      }
+      if (rootStore.state.config.stock.synchronize) {
+        TaskQueue.queue({ url: rootStore.state.config.stock.endpoint + '/check?sku='+skuFrontend,
+          payload: {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors'
+          },
+          product_sku: product.sku,
+          callback_event: 'store:stock/stockAfterCheck'
+        }).then((task:any) => {
+          resolve({ qty: product.stock ? product.stock.qty : 0, status: product.stock ? (product.stock.is_in_stock ? 'ok' : 'out_of_stock') : 'ok', onlineCheckTaskId: task.task_id }) // if online we can return ok because it will be verified anyway
+        })
+      } else {
+        resolve({ qty: product.stock ? product.stock.qty : 0, status: product.stock ? (product.stock.is_in_stock ? 'ok' : 'out_of_stock') : 'volatile' }) // if not online, cannot check the source of true here
+      }
+    })
+  },
+
   /**
    * Reset current configuration and selected variatnts
    */
@@ -65,18 +92,25 @@ const actions: ActionTree<StockState, RootState> = {
     context.state.cache = {}
   },
   stockAfterCheck (context, event) {
+    console.log('stock after check !')
     setTimeout(() => {
       // TODO: Move to cart module
       rootStore.dispatch('cart/getItem', event.product_sku).then((cartItem) => {
+        console.log("----------cart item--------")
+        console.log(cartItem)
+        console.log("----event-----------")
+        console.log(event)
         if (cartItem && event.result.code !== 'ENOTFOUND') {
           if (!event.result.is_in_stock) {
             if (!rootStore.state.config.stock.allowOutOfStockInCart) {
+              console.log("remove from cart !")
               Logger.log('Removing product from cart' + event.product_sku, 'stock')()
               rootStore.commit('cart/' + types.CART_DEL_ITEM, { product: { sku: event.product_sku } }, {root: true})
             } else {
               rootStore.dispatch('cart/updateItem', { product: { errors: { stock: i18n.t('Out of the stock!') }, sku: event.product_sku, is_in_stock: false } })
             }
           } else {
+            console.log("is in stock !")
             rootStore.dispatch('cart/updateItem', { product: { info: { stock: i18n.t('In stock!') }, sku: event.product_sku, is_in_stock: true } })
           }
           Vue.prototype.$bus.$emit('cart-after-itemchanged', { item: cartItem })
