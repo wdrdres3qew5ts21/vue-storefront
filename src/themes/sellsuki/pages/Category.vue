@@ -9,7 +9,7 @@
       </div>
       <div class="col-xs-6 filter-section">
         <button
-          class="mobile-filters-button bg-cl-th-accent brdr-none cl-white sans-serif"
+          class="mobile-filters-button bg-cl-th-accent brdr-none cl-white"
           @click="openFilters"
         >
           <font-awesome-icon class="plus" icon="plus" size="md" style="color: #EEEEEE;"/>

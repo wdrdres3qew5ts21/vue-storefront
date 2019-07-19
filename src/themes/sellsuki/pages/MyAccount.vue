@@ -1,6 +1,6 @@
 <template>
   <div id="my_account">
-    <div class="bg-cl-secondary py35 pl20">
+    <div class="py35 pl20">
       <div class="container">
         <breadcrumbs
           :routes="[{name: 'Homepage', route_link: '/'}]"

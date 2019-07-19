@@ -68,7 +68,7 @@
                     </span>
                   </div>
                   <div class="row top-xs m0 pt15 pb40 variants-wrapper">
-                    <div v-if="option.label == 'Color'">
+                    <div class="options" v-if="option.label == 'Color'">
                       <div class="option" @click="showFilter('color')">
                         <p class="option-title">{{ option.label }}</p>
                         <div class="expand-btn" v-if="expandView('color')">
@@ -93,7 +93,7 @@
                         :class="{ active: c.id == configuration[option.attribute_code].id }"
                       />
                     </div>
-                    <div class="sizes" v-else-if="option.label == 'Size'">
+                    <div class="options" v-else-if="option.label == 'Size'">
                       <div class="option" @click="showFilter('size')">
                         <p class="option-title">{{ option.label }}</p>
                         <div class="expand-btn" v-if="expandView('size')">
@@ -352,6 +352,11 @@ $bg-secondary: color(secondary, $colors-background);
     line-height: 16px;
     letter-spacing: 0.1em;
   }
+
+  .expand-btn {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .breadcrumbs {
@@ -420,7 +425,7 @@ $bg-secondary: color(secondary, $colors-background);
     padding-bottom: 30px;
   }
 
- .sizes {
+ .options {
     @media (max-width: 767px) {
       width: 100%;
     }
