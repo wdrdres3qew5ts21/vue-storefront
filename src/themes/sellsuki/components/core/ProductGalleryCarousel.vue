@@ -3,12 +3,8 @@
     <wishlist-button class="top-right" :product="product" />
     <carousel
       :per-page="1"
-      :mouse-drag="false"
-      :navigation-enabled="true"
-      pagination-active-color="#828282"
-      pagination-color="transparent"
-      navigation-next-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_right</i>"
-      navigation-prev-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_left</i>"
+      :mouse-drag="true"
+      :pagination-enabled="false"
       ref="carousel"
       :speed="carouselTransitionSpeed"
       @pageChange="pageChange"

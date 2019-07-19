@@ -84,6 +84,7 @@
                       </div>
                       <color-selector
                         v-for="(c, i) in options[option.attribute_code]"
+                        v-show="showColor"
                         :key="i"
                         :id="c.id"
                         :label="c.label"
@@ -108,6 +109,7 @@
                       </div>
                       <size-selector
                         v-for="(s, i) in options[option.attribute_code]"
+                        v-show="showSize"
                         :key="i"
                         :id="s.id"
                         :label="s.label"

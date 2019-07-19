@@ -11,7 +11,7 @@
       </header>
     </div>
     <div class="prodcuts row m0">
-      <product-listing columns="4" :products="product.related[type]" />
+      <product-listing page="product-listing" columns="4" :products="product.related[type]" />
     </div>
   </section>
 </template>
