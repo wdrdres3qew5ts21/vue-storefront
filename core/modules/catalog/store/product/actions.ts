@@ -529,6 +529,10 @@ const actions: ActionTree<ProductState, RootState> = {
    * @param {Array} configuration
    */
   configure (context, { product = null, configuration, selectDefaultVariant = true, fallbackToDefaultWhenNoAvailable = true }) {
+    console.log("configuration")
+    console.log(configuration)
+    console.log("product")
+    console.log(product)
     return configureProductAsync(context, { product: product, configuration: configuration, selectDefaultVariant: selectDefaultVariant, fallbackToDefaultWhenNoAvailable: fallbackToDefaultWhenNoAvailable })
   },
 
