@@ -242,7 +242,6 @@ export default {
 <style lang="scss" scoped>
 .edit-section {
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   margin: 10px 8px 30px 8px;
 

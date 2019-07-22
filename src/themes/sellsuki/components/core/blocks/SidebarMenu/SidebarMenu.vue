@@ -74,10 +74,10 @@
               :parent-path="category.url_path"
             />
           </li>
-          <li class="brdr-bottom-1 brdr-cl-secondary bg-cl-secondary flex">
+          <li class="brdr-bottom-1 brdr-cl-secondary account-section flex">
             <div class="row account-tab">
               <div @click="login" class="col-xs-10 my-account">
-                <font-awesome-icon class="account-icon" icon="user-circle" size="2x" style="color: #404040;"/>
+                <font-awesome-icon class="account-icon" icon="user-circle" size="lg" style="color: #404040;"/>
                 <sub-btn
                   v-if="currentUser"
                   :show-right-arrow="false"
@@ -135,28 +135,8 @@ export default {
         },
         {
           id: 2,
-          name: i18n.t('My shipping details'),
-          url: '/my-account/shipping-details'
-        },
-        {
-          id: 3,
-          name: i18n.t('My newsletter'),
-          url: '/my-account/newsletter'
-        },
-        {
-          id: 4,
           name: i18n.t('My orders'),
           url: '/my-account/orders'
-        },
-        {
-          id: 5,
-          name: i18n.t('My loyalty card'),
-          url: '#'
-        },
-        {
-          id: 6,
-          name: i18n.t('My product reviews'),
-          url: '#'
         }
       ],
       componentLoaded: false
@@ -224,7 +204,7 @@ a, button {
 }
 
 .account-icon {
-  padding: 0 2% 0 10%;
+  padding-left: 10%;
 }
 
 .list-row, .list-items {
@@ -268,23 +248,12 @@ a, button {
     width: 100%;
     background: white;
 
-    &:hover,
-    &:focus {
-      background-color: $color-gainsboro;
-    }
     &:last-child {
       margin-top: auto;
       align-items: center;
       justify-content: flex-start;
     }
-    &.bg-cl-primary {
-      &:hover,
-      &:focus {
-        background-color: $bg-secondary;
-      }
-    }
     a {
-      color: $color-mine-shaft;
       background: white;
     }
   }

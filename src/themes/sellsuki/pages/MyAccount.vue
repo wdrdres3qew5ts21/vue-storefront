@@ -3,7 +3,7 @@
     <div class="pt35 pl20">
       <div class="container">
         <breadcrumbs
-          :routes="[{name: 'Home', route_link: '/'}, {name: 'My Account', route_link: '/'}]"
+          :routes="[{name: 'Home', route_link: '/'}, {name: 'My Account', route_link: ''}]"
           active-route="My Account"
         />
       </div>

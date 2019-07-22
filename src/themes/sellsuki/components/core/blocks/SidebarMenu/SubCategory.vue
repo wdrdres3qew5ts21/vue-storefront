@@ -6,7 +6,7 @@
       :style="styles"
     >
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex w-100"
         v-if="parentSlug"
       >
         <router-link
@@ -18,7 +18,7 @@
         </router-link>
       </li>
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex w-100"
         :key="link.slug"
         v-for="link in children"
       >
@@ -52,7 +52,7 @@
       :style="styles"
     >
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex w-100"
         :key="link.id"
         v-for="link in myAccountLinks"
         @click="notify(link.name)"
@@ -64,10 +64,16 @@
           {{ link.name }}
         </router-link>
       </li>
-      <li class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex">
-        <a href="#" class="px25 py20 cl-accent no-underline col-xs" @click.prevent="logout">
-          {{ $t('Logout') }}
-        </a>
+      <li class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary logout-li flex w-100">
+        <div @click.prevent="logout" class="col-xs-10 logout-tab">
+          <font-awesome-icon class="account-icon" icon="user-circle" size="lg" style="color: #404040;"/>
+          <a href="#" class="py20 cl-accent no-underline col-xs" >
+            {{ $t('Logout') }}
+          </a>
+        </div>
+        <div class="col-xs-2 wishlist-col">
+          <wishlist-icon class="h-100 bg-cl-primary icon pointer" />
+        </div>
       </li>
     </ul>
   </div>
@@ -76,11 +82,13 @@
 import { mapState } from 'vuex'
 import SubBtn from './SubBtn.vue'
 import i18n from '@vue-storefront/i18n'
+import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon'
 
 export default {
   name: 'SubCategory',
   components: {
-    SubBtn
+    SubBtn,
+    WishlistIcon
   },
   props: {
     id: {
@@ -149,8 +157,8 @@ export default {
   }
 }
 </script>
-<style scoped>
-  .sidebar-submenu {
+<style lang="scss" scoped>
+.sidebar-submenu {
     left: 0;
     top: 0;
     min-height: 100%;
@@ -163,12 +171,48 @@ export default {
   }
 
   a {
-    font-family: Nunito Sans;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
     line-height: 22px;
     color: #404040;
     text-transform: uppercase;
+  }
+
+  .logout-tab {
+    display: flex;
+    align-items: center;
+    padding: 0;
+
+    .account-icon {
+      padding-left: 25px;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .logout-li {
+    width: 100%;
+    background: white;
+
+    &:last-child {
+      margin-top: auto;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    a {
+      background: white;
+    }
+  }
+
+  .wishlist-icon {
+    display: flex;
+    justify-content: center;
   }
 </style>

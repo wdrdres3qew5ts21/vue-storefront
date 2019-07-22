@@ -105,6 +105,7 @@
 import MyOrder from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyOrder'
 
 export default {
+  name: 'MyOrder',
   mixins: [MyOrder]
 }
 </script>

@@ -19,6 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .material-icons {
-  font-size: 30px;
+  font-size: 27px;
+  color: #404040;
 }
 </style>
