@@ -4,28 +4,30 @@
     <loader/>
     <div id="viewport" class="w-100 relative">
       <main-header/>
-      <async-sidebar
-        :async-component="SearchPanel"
-        :is-open="isSearchPanelOpen"
-        @close="$store.commit('ui/setSearchpanel')"
-      />
-      <async-sidebar
-        :async-component="Microcart"
-        :is-open="isMicrocartOpen"
-        @close="$store.commit('ui/setMicrocart')"
-      />
-      <async-sidebar
-        :async-component="SidebarMenu"
-        :is-open="isSidebarOpen"
-        @close="$store.commit('ui/setSidebar')"
-        direction="left"
-      />
-      <async-sidebar
-        :async-component="Wishlist"
-        :is-open="isWishlistOpen"
-        @close="$store.commit('ui/setWishlist')"
-      />
-      <slot/>
+      <div style="min-height: calc(100vh - 352.44px);">
+        <async-sidebar
+          :async-component="SearchPanel"
+          :is-open="isSearchPanelOpen"
+          @close="$store.commit('ui/setSearchpanel')"
+        />
+        <async-sidebar
+          :async-component="Microcart"
+          :is-open="isMicrocartOpen"
+          @close="$store.commit('ui/setMicrocart')"
+        />
+        <async-sidebar
+          :async-component="SidebarMenu"
+          :is-open="isSidebarOpen"
+          @close="$store.commit('ui/setSidebar')"
+          direction="left"
+        />
+        <async-sidebar
+          :async-component="Wishlist"
+          :is-open="isWishlistOpen"
+          @close="$store.commit('ui/setWishlist')"
+        />
+        <slot/>
+      </div>
       <main-footer/>
       <notification/>
       <sign-up/>

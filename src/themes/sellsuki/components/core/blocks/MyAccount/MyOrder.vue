@@ -71,12 +71,12 @@
         <div class="row">
           <div class="col-sm-6 col-md-3">
             <h5>{{ $t('Shipping address') }}</h5>
-            <address>
+            <!-- <address>
               <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
               <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
               <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
               <p>{{ shippingAddress.country }}</p>
-            </address>
+            </address> -->
           </div>
           <div class="col-sm-6 col-md-3">
             <h5>{{ $t('Shipping method') }}</h5>
@@ -105,7 +105,6 @@
 import MyOrder from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyOrder'
 
 export default {
-  name: 'MyOrder',
   mixins: [MyOrder]
 }
 </script>
