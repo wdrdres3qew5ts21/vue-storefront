@@ -1,3 +1,4 @@
+import { CATALOG_SET_PRODUCT_ORIGINAL } from './../../catalog/store/product/mutation-types';
 /**
  * Component responsible for displaying single user order. Requires User module.
  */
@@ -20,6 +21,9 @@ export const UserSingleOrder = {
     },
     shippingAddress () {
       return this.order.extension_attributes.shipping_assignments[0].shipping.address
+    },
+    orderHistoryImages () {
+      return this.$store.state.product.order_history_images
     }
   },
   methods: {
@@ -34,6 +38,14 @@ export const UserSingleOrder = {
     skipGrouped (items) {
       return items.filter((item) => {
         return !item.parent_item_id
+      })
+    },
+    fetchProductImage() {
+      this.$store.product.order_history_images = []
+      this.order.items.forEach(item => {
+        let parentSku = item.sku.substr(0, item.sku.indexOf('-'))
+        this.$store.dispatch('product/fetchAsync', { parentSku: parentSku, childSku: item.sku})
+        this.$store.state.product.order_history_images.push(this.$store.state.product.current.image)
       })
     }
   }

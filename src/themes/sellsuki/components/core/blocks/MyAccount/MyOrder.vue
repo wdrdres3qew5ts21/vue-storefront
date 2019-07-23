@@ -1,26 +1,34 @@
 <template>
   <div class="mb35">
     <!-- My order header -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 name-section">
+        <p class="title m0 mb5 mt5">
+          MY ORDER
+        </p>
+        <p class="name">
+          {{ order.customer_firstname }} {{ order.customer_lastname }}
+        </p>
+        <hr>
+      </div>
+    </div>
     <div class="row mb15">
-      <div class="col-xs-12 col-sm-6">
-        <h3 class="m0 mb5">
-          {{ $t('Order #') }}{{ order.entity_id }}
-          <span class="brdr-1 brdr-cl-bg-secondary py5 px10 ml20 sans-serif fs-medium-small weight-400 cl-secondary">
-            {{ order.status | capitalize }}
-          </span>
-        </h3>
+      <div class="col-xs-8 col-sm-6 order-details">
+        <p class="m0 mb5 order-number">
+          ORDER {{ order.entity_id }}
+        </p>
+        <p class="order-date">{{ order.created_at | date('MMMM D, YYYY') }}</p>
+        <p class="remake-order"><a href="#" class="underline" @click.prevent="remakeOrder(skipGrouped(order.items))">{{ $t('Remake order') }}</a></p>
+      </div>
+      <div class="col-xs-4 order-status">
+        <p class="status">
+          {{ order.status | capitalize }}
+        </p>
       </div>
     </div>
     <!-- My order body -->
-    <div class="row fs16 mb20">
-      <div class="col-xs-12 h4">
-        <p>{{ order.created_at | date('MMMM D, YYYY') }}</p>
-        <p class="mt35"><a href="#" class="underline" @click.prevent="remakeOrder(skipGrouped(order.items))">{{ $t('Remake order') }}</a></p>
-      </div>
-    </div>
     <div class="row fs16 mb35">
       <div class="col-xs-12 h4">
-        <h4>{{ $t('Items ordered') }}</h4>
         <table class="brdr-1 brdr-cl-bg-secondary">
           <thead>
             <tr>
@@ -105,7 +113,10 @@
 import MyOrder from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyOrder'
 
 export default {
-  mixins: [MyOrder]
+  mixins: [MyOrder],
+  mounted () {
+    this.fetchProductImage()
+  }
 }
 </script>
 
@@ -114,6 +125,83 @@ export default {
 @import '~theme/css/helpers/functions/color';
 $color-tertiary: color(tertiary);
 $color-white-smoke: color(white-smoke);
+
+hr {
+  color: rgba(0, 0, 0, 0.25);
+  opacity: 0.3;
+  margin: 22px 0;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 34px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.name {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.order-details {
+  .order-number {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .order-date {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .remake-order {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.1em;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+  }
+}
+
+.order-status {
+  padding: 0;
+  display: flex;
+  align-items: center;
+
+  .status {
+    /* align text to center */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* text style */
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+
+    /* border style */
+    border: 1.5px solid #EEEEEE;
+    box-sizing: border-box;
+    border-radius: 0.5px;
+
+    /* box width and height */
+    width: 115px;
+    height: 40px;
+  }
+}
 
 table {
   border-collapse: collapse;

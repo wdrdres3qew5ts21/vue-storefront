@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@vue-storefront/core/store'
 import * as types from './mutation-types'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 import { ActionTree } from 'vuex'
@@ -50,7 +51,7 @@ const actions: ActionTree<OrderState, RootState> = {
           }
         })
         Vue.prototype.$bus.$emit('notification-progress-stop')
-
+        
         if (task.resultCode === 200) {
           order.transmited = true
           commit(types.ORDER_PLACE_ORDER, order) // archive this order but not trasmit it second time
