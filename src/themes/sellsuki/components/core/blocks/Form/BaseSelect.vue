@@ -99,19 +99,26 @@ export default {
   }
 
   select {
-    @extend .h4;
+    height: 30px;
+    margin-top: 10px;
     border: none;
-    border-bottom: 1px solid $color-tertiary;
+    border-bottom: 3px solid #EEEEEE;
     width: 100%;
     -moz-appearance: none;
     -webkit-appearance: none;
     border-radius: 0;
     background-color: transparent;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: capitalize;
+    color: #404040;
 
     &:hover,
     &:focus {
       outline: none;
-      border-color: $color-puerto-rico;
     }
 
     &:disabled,
@@ -122,7 +129,11 @@ export default {
     }
   }
   label {
-    color: #999;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #C5C5C5;
     position: absolute;
     pointer-events: none;
     user-select: none;
@@ -133,9 +144,12 @@ export default {
     -webkit-transition: 0.2s ease all;
   }
   select:focus ~ label, select:not(.empty) ~ label {
-    top: -10px;
-    font-size: 14px;
-    color: $color-puerto-rico;
+    padding: 0;
+    top: -6px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C5C5C5;
   }
 }
 </style>

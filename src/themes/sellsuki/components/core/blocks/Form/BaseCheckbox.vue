@@ -64,10 +64,12 @@ export default {
 
   label {
     user-select: none;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
     &:before {
       content: '';
       position: absolute;
-      top: 3px;
       left: 0;
       width: 20px;
       height: 20px;
@@ -91,7 +93,7 @@ export default {
       &:after {
         content: '';
         position: absolute;
-        top: 9px;
+        top: 5px;
         left: 5px;
         width: 11px;
         height: 5px;

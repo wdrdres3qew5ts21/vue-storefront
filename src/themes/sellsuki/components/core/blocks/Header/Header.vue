@@ -32,26 +32,16 @@
             </div>
           </div>
         </div>
-        <div class="row between-xs middle-xs px15 py5" v-if="isCheckoutPage">
-          <div class="col-xs-5 col-md-3 middle-xs">
+        <div class="row between-xs middle-xs px15 py5 checkout-header" v-if="isCheckoutPage">
+          <div class="col-xs-4 col-md-3 middle-xs">
             <div>
               <router-link :to="localizedRoute('/')" class="cl-tertiary links">
                 {{ $t('Return to shopping') }}
               </router-link>
             </div>
           </div>
-          <div class="col-xs-2 col-md-6 center-xs">
+          <div class="col-xs-4 col-md-6 center-xs">
             <logo width="auto" height="41px"/>
-          </div>
-          <div class="col-xs-5 col-md-3 end-xs">
-            <div>
-              <a v-if="!currentUser" href="#" @click.prevent="gotoAccount" class="cl-tertiary links">
-                {{ $t('Login to your account') }}
-              </a>
-              <span v-else>
-                {{ $t('You are logged in as') }} {{ currentUser.firstname }}
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -153,6 +143,7 @@ $color-icon-hover: color(secondary, $colors-background);
     }
     @media (max-width: 767px) {
       background: white;
+      z-index: 5;
     }
   }
 }
@@ -190,5 +181,10 @@ $color-icon-hover: color(secondary, $colors-background);
   a, span {
     font-size: 12px;
   }
+}
+
+.checkout-header {
+  display: flex;
+  justify-content: flex-start;
 }
 </style>

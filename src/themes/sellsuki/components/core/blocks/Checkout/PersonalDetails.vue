@@ -1,37 +1,7 @@
 <template>
   <div class="personal-details">
-    <div class="row pl20">
-      <div class="col-xs-1 col-sm-2 col-md-1">
-        <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
-          :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
-        >
-          1
-        </div>
-      </div>
-      <div class="col-xs-11 col-sm-9 col-md-11">
-        <div class="row mb15">
-          <div class="col-xs-12 col-md-7" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-            <h3 class="m0 mb5">
-              {{ $t('Personal Details') }}
-            </h3>
-          </div>
-          <div class="col-xs-12 col-md-5 pr30">
-            <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
-              <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-                <span class="pr5">
-                  {{ $t('Edit personal details') }}
-                </span>
-                <i class="material-icons cl-tertiary">edit</i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row pl20" v-if="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-11 col-sm-9 col-md-10">
+    <div class="row" v-if="isActive">
+      <div class="col-xs-12 col-sm-9 col-md-10">
         <div class="row">
           <base-input
             class="col-xs-12 col-md-6 mb10"
@@ -159,15 +129,15 @@
     </div>
     <div class="row" v-show="isActive">
       <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-11 col-sm-9 col-md-10">
+      <div class="col-xs-12 col-sm-9 col-md-10">
         <div class="row my30">
-          <div class="col-xs-12 col-md-7 px20 button-container">
+          <div class="col-xs-12 col-md-7 button-container">
             <button-full
               data-testid="personalDetailsSubmit"
               @click.native="sendDataToCheckout"
               :disabled="createAccount ? $v.$invalid : $v.personalDetails.$invalid"
             >
-              {{ $t((isVirtualCart ? 'Continue to payment' : 'Continue to shipping')) }}
+              CONTINUE
             </button-full>
           </div>
           <div
@@ -267,6 +237,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.personal-details {
+  padding: 20px 30px;
+}
+
 .link {
   text-decoration: underline;
 }
@@ -274,6 +248,20 @@ export default {
 .login-prompt {
   @media (min-width: 1200px) {
     margin-top: 30px;
+  }
+}
+
+.button-container {
+  background: #404040;
+
+  button {
+    background: #404040;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.25em;
+    color: #EEEEEE;
   }
 }
 </style>

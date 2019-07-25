@@ -244,7 +244,11 @@ export default {
     }
   }
   label {
-    color:#999;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #C5C5C5;
     position:absolute;
     pointer-events:none;
     user-select: none;
@@ -255,9 +259,12 @@ export default {
     -webkit-transition:0.2s ease all;
   }
   input:focus ~ label, input:not(.empty) ~ label{
-    top: -10px;
-    font-size:14px;
-    color:$color-puerto-rico;
+    padding: 0;
+    top: -6px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C5C5C5;
   }
 
   .icon {

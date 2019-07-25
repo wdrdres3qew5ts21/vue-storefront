@@ -1,58 +1,50 @@
 <template>
   <div class="order-review pt20">
     <div class="row pl20">
-      <div class="col-xs-1 col-sm-2 col-md-1">
-        <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
-          :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
-        >
-          {{ (isVirtualCart ? 3 : 4) }}
-        </div>
-      </div>
-      <div class="col-xs-11 col-sm-9 col-md-11">
-        <div class="row">
-          <div class="col-md-12" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-            <h3 class="m0">
-              {{ $t('Review order') }}
-            </h3>
-          </div>
-        </div>
+      <div class="col-xs-12 col-md-12" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+        <p class="title">
+          ORDER SUMMARY
+        </p>
       </div>
     </div>
     <div class="row pl20 pr20" v-show="isActive">
       <div class="hidden-xs col-sm-2 col-md-1"/>
       <div class="col-xs-12 col-sm-9 col-md-11">
-        <div id="checkout-order-review-additional-container">
-          <div id="checkout-order-review-additional">&nbsp;</div>
-        </div>
-        <div class="row mb15 mt20">
+        <div class="row mb15 mt10">
           <div class="col-xs-12">
-            <p class="h4">
+            <p class="check-details">
               {{ $t('Please check if all data are correct') }}
             </p>
             <div class="row">
-              <div class="cartsummary-wrapper">
-                <cart-summary />
-              </div>
-              <base-checkbox
-                class="col-xs-11 col-sm-12 col-md-8 bg-cl-secondary p15 mb35 ml10"
-                id="acceptTermsCheckbox"
-                @click="orderReview.terms = !orderReview.terms"
-                @blur="$v.orderReview.terms.$touch()"
-                v-model="orderReview.terms"
-                :validations="[{
-                  condition: !$v.orderReview.terms.required && $v.orderReview.terms.$error,
-                  text: $t('Field is required')
-                }]"
-              >
-                {{ $t('I agree to') }}
-                <span
-                  class="link pointer"
-                  @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
+              <div class="col-xs-12">
+                <detail-summary
+                  :personal-details="personalDetails"
+                  :shipping="shipping"
+                  :payment="payment"
+                />
+                <div class="cartsummary-wrapper pt20">
+                  <cart-summary />
+                </div>
+                <base-checkbox
+                  class="checkbox col-xs-12 col-sm-12 col-md-8 mt20"
+                  id="acceptTermsCheckbox"
+                  @click="orderReview.terms = !orderReview.terms"
+                  @blur="$v.orderReview.terms.$touch()"
+                  v-model="orderReview.terms"
+                  :validations="[{
+                    condition: !$v.orderReview.terms.required && $v.orderReview.terms.$error,
+                    text: $t('Field is required')
+                  }]"
                 >
-                  {{ $t('Terms and conditions') }}
-                </span>
-              </base-checkbox>
+                  {{ $t('I agree to') }}
+                  <span
+                    class="link pointer"
+                    @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
+                  >
+                    {{ $t('Terms and conditions') }}
+                  </span>
+                </base-checkbox>
+              </div>
             </div>
           </div>
         </div>
@@ -62,7 +54,7 @@
       <div class="hidden-xs col-sm-2 col-md-1"/>
       <div class="col-xs-12 col-sm-9 col-md-11">
         <div class="row">
-          <div class="col-xs-12 col-md-8 px20">
+          <div class="order-btn col-xs-12 col-md-8">
             <slot name="placeOrderButton">
               <button-full
                 @click.native="placeOrder"
@@ -113,6 +105,7 @@ import Composite from '@vue-storefront/core/mixins/composite'
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
 import ButtonFull from 'theme/components/theme/ButtonFull'
 import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary'
+import DetailSummary from 'sellsuki/components/core/blocks/Checkout/DetailSummary'
 import Modal from 'theme/components/core/Modal'
 import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview'
 import ValidationError from 'theme/components/core/ValidationError'
@@ -123,7 +116,8 @@ export default {
     ButtonFull,
     CartSummary,
     Modal,
-    ValidationError
+    ValidationError,
+    DetailSummary
   },
   mixins: [OrderReview, Composite],
   validations: {
@@ -131,6 +125,23 @@ export default {
       terms: {
         required
       }
+    }
+  },
+  props: {
+    personalDetails: {
+      type: Object,
+      required: true,
+      default: null
+    },
+    shipping: {
+      type: Object,
+      required: true,
+      default: null
+    },
+    payment: {
+      type: Object,
+      required: true,
+      default: null
     }
   },
   methods: {
@@ -153,6 +164,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .title {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.1em;
+  }
+
+  .check-details {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+  }
+
   .link {
     text-decoration: underline;
   }
@@ -160,6 +186,23 @@ export default {
   .cartsummary-wrapper {
     @media (min-width: 767px) {
       display: none;
+    }
+  }
+
+  .checkbox {
+    padding: 0;
+  }
+
+  .order-btn {
+    padding: 0 28px;
+
+    button {
+      background: #404040;
+      text-transform: uppercase;
+      color: #EEEEEE;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 0.25em;
     }
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <footer :class="{ 'brdr-top-1 brdr-cl-secondary': isCheckoutPage }">
+  <footer>
     <newsletter class=" flex brdr-bottom-1 brdr-cl-secondary" v-if="!isCheckoutPage"/>
     <div
       class="footer-links flex pt30 pb60 px40"
@@ -110,7 +110,7 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container privacy-section">
       <div class="row middle-xs px15 bottom-links">
         <div class="col-xs-5 col-sm-3 cl-tertiary">
           <language-switcher v-if="multistoreEnabled" />
@@ -176,6 +176,17 @@ export default {
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-secondary: color(secondary);
+
+footer {
+  /* min-height: 110px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.privacy-section {
+  width: 100%;
+}
 
 .icon {
   transition: 0.3s all;

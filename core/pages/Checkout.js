@@ -125,6 +125,11 @@ export default {
     'OnlineOnly': 'onNetworkStatusCheck'
   },
   methods: {
+    edit (details, type) {
+      if (Object.keys(details).length !== 0) {
+        this.$bus.$emit('checkout-before-edit', type)
+      }
+    },
     onCartAfterUpdate (payload) {
       if (this.$store.state.cart.cartItems.length === 0) {
         this.notifyEmptyCart()
