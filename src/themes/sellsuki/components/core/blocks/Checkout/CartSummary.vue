@@ -5,7 +5,6 @@
         PRODUCTS
       </p>
       <product v-for="product in productsInCart" :key="product.sku" :product="product"/>
-      <product v-for="product in productsInCart" :key="product.sku" :product="product"/>
       <div v-if="productsInCart && productsInCart.length" class="checkout pt20">
 
         <div v-for="(segment, index) in totals" :key="index" class="row pt15 px15" :v-if="segment.code !== 'grand_total'">

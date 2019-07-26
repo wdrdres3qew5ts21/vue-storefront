@@ -101,15 +101,20 @@ export default {
     &:hover,
     &:focus {
       outline: none;
-      border-color: $color-puerto-rico;
     }
+    border-bottom: 3px solid #C5C5C5;
+    font-size: 14px;
+    text-transform: capitalize;
+    line-height: 19px;
     resize: none;
     background: inherit;
-    min-height: 100px;
+    min-height: 70px;
   }
 
   label {
-    color: #999;
+    font-size: 14px;
+    line-height: 19px;
+    color: #C5C5C5;
     position: absolute;
     pointer-events: none;
     left: 0;
@@ -120,8 +125,10 @@ export default {
   textarea:focus ~ label,
   textarea:not(.empty) ~ label {
     top: -10px;
-    font-size: 14px;
-    color: $color-puerto-rico;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C5C5C5;
   }
 
   .icon {

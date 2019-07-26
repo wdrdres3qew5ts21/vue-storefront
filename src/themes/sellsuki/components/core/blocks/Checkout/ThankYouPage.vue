@@ -1,55 +1,57 @@
 <template>
   <div>
-    <header class="thank-you-title bg-cl-secondary py35 pl20">
-      <div class="container">
-        <breadcrumbs
-          :routes="[{name: 'Homepage', route_link: '/'}]"
-          :active-route="this.$t('Order confirmation')"
-        />
-        <h2 class="category-title">
-          {{ $t('Order confirmation') }}
-        </h2>
+    <header class="thank-you-title px20">
+      <div class="container px0 pt30">
+        <p class="category-title">
+          ORDER CONFIRMATION
+        </p>
+        <p class="order-number pt10">
+          ORDER NUMBER: {{ lastOrderConfirmation.backendOrderId }}
+        </p>
+        <p class="order-time">
+          {{ getTime(lastOrderConfirmation.transferedAt) }}
+        </p>
       </div>
     </header>
-    <div class="thank-you-content align-justify py40 pl20">
+    <div class="thank-you-content px20">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 pl20 pr20">
-            <h3 v-if="OnlineOnly" >
-              {{ $t('Your purchase') }}
-            </h3>
-            <p v-if="OnlineOnly" v-html="this.$t('You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.')" />
-            <p v-if="OnlineOnly && lastOrderConfirmation" v-html="this.$t('The server order id has been set to ') + lastOrderConfirmation.backendOrderId"/>
-            <p v-if="OnlineOnly" v-html="this.$t('E-mail us at <b>demo@vuestorefront.io</b> with any questions, suggestions how we could improve products or shopping experience')"/>
+          <div class="col-xs-12 col-md-6">
+            <p v-if="OnlineOnly" class="details-title pt20">
+              Thank you for your purchase
+            </p>
+            <p v-if="OnlineOnly" class="details pt20">
+              We have received your order and will send you with an order confirmation e-mail with the details of your order and a link to track its progress, You can check status of your order by using our delivery status feature.
+            </p>
 
-            <h4 v-if="OfflineOnly">
+            <p v-if="OfflineOnly" class="details-title pt10">
               {{ $t('You are offline') }}
-            </h4>
-            <p v-if="OfflineOnly && !isNotificationSupported" >
+            </p>
+            <p v-if="OfflineOnly && !isNotificationSupported" class="details py20">
               {{ $t('To finish the order just come back to our store while online. Your order will be sent to the server as soon as you come back here while online and then confirmed regarding the stock quantities of selected items') }}
             </p>
-            <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted" >
+            <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted" class="details">
               {{ $t("You can allow us to remind you about the order via push notification after coming back online. You'll only need to click on it to confirm.") }}
             </p>
-            <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted" >
+            <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted" class="details">
               <strong>{{ $t('You will receive Push notification after coming back online. You can confirm the order by clicking on it') }}</strong>
             </p>
-            <p v-if="!isPermissionGranted && isNotificationSupported">
+            <p v-if="!isPermissionGranted && isNotificationSupported" class="py20">
               <button-outline color="dark" @click.native="requestNotificationPermission()" >
-                {{ $t('Allow notification about the order') }}
+                ALLOW NOTIFICATIONS
               </button-outline>
             </p>
             <div id="thank-you-extensions"/>
-            <h4>
+            <p class="details-title">
               {{ $t('Your Account') }}
-            </h4>
-            <p v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
+            </p>
+            <p class="details" v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
           </div>
           <div class="col-md-6 bg-cl-secondary thank-you-improvment">
-            <h3>
-              {{ $t('What we can improve?') }}
-            </h3>
-            <p class="mb25">
+            <p class="feedback-title pb15">
+              YOUR FEEDBACK
+            </p>
+            <p class="mb15 feedback-detail">
               {{ $t('Your feedback is important for us. Let us know what we could improve.') }}
             </p>
             <form @submit.prevent="sendFeedback">
@@ -58,11 +60,11 @@
                 type="text"
                 name="body"
                 v-model="feedback"
-                :placeholder="$t('Type your opinion')"
+                placeholder="What we could improve"
                 :autofocus="true"
               />
               <button-outline color="dark">
-                {{ $t('Give a feedback') }}
+                SEND FEEDBACK
               </button-outline>
             </form>
           </div>
@@ -74,7 +76,6 @@
 
 <script>
 import Composite from '@vue-storefront/core/mixins/composite'
-import Breadcrumbs from 'theme/components/core/Breadcrumbs'
 import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
 import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import VueOfflineMixin from 'vue-offline/mixin'
@@ -151,6 +152,11 @@ export default {
         message,
         action1: { label: this.$t('OK') }
       })
+    },
+    getTime (timeDate) {
+      let date = timeDate.substr(0, timeDate.indexOf('T'))
+      let time = timeDate.substr(timeDate.indexOf('T') + 1, timeDate.indexOf('.'))
+      return `${date} ${time}`
     }
   },
   destroyed () {
@@ -158,28 +164,63 @@ export default {
   },
   components: {
     BaseTextarea,
-    Breadcrumbs,
     ButtonOutline
   }
 }
 </script>
 
 <style lang="scss">
-  .thank-you-content {
-    padding-left: 0;
+  .category-title {
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 34px;
+    letter-spacing: 0.1em;
+  }
 
-    p {
-      line-height: 25px
+  .order-number {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.1em;
+  }
+
+  .order-time {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C5C5C5;
+    padding-bottom: 25px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+  }
+
+  .thank-you-content {
+    .details-title {
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 22px;
     }
 
-    @media (min-width: 64em) {
-      h4 {
-        font-size: 24px;
-      }
+    .details {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 19px;
     }
   }
   .thank-you-improvment {
-    padding: 0 20px 15px;
+    padding: 20px;
+
+    .feedback-title {
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 27px;
+      letter-spacing: 0.1em;
+    }
+
+    .feedback-detail {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 19px;
+    }
 
     @media (min-width: 64em) {
       padding: 0 40px 10px;

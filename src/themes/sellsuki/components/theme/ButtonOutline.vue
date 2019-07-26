@@ -2,7 +2,7 @@
   <component
     :is="link ? 'router-link' : 'button'"
     :to="localizedRoute(link)"
-    class="button-outline no-outline no-underline sans-serif fs-medium"
+    class="button-outline no-outline no-underline fs-medium py5"
     :class="{
       light : color === 'light', 'brdr-white' : color === 'light', 'cl-white' : color === 'light',
       dark : color === 'dark', 'brdr-darkgray' : color === 'dark', 'cl-secondary' : color === 'dark',
@@ -43,25 +43,35 @@ export default {
   $white: color(white);
   $black: color(black);
 
+  * {
+    font-family: 'Nunito Sans';
+  }
+
   .button-outline {
+    width: 100%;
     border: 2px solid;
     background-color: transparent;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.25em;
   }
   .dark {
     border: 1px solid $dark-border;
     &:hover,
     &:focus {
-      color: $white;
-      background: $black;
-      border-color: $black;
+      color: #EEEEEE;
+      background: #404040;
+      border-color: #404040;
     }
   }
   .light {
     &:hover,
     &:focus {
-      color: $black;
-      background: $white;
-      border-color: $white;
+      color: #404040;
+      background: #EEEEEE;
+      border-color: #EEEEEE;
     }
   }
 </style>
