@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-100">
     <div class="personal-details details pt20 pb15">
       <p class="section-header">PERSONAL DETAILS</p>
       <div class="row pt15">
@@ -9,9 +9,9 @@
           <p>E-mail Address</p>
         </div>
         <div class="col-xs-6">
-          <p>{{ personalDetails.firstName }}</p>
-          <p>{{ personalDetails.lastName }}</p>
-          <p>{{ personalDetails.emailAddress }}</p>
+          <p>{{ order.customer_firstname }}</p>
+          <p>{{ order.customer_lastname }}</p>
+          <p>{{ order.customer_email }}</p>
         </div>
       </div>
     </div>
@@ -31,24 +31,31 @@
           <p>Phone Number</p>
         </div>
         <div class="col-xs-6">
-          <p>{{ shipping.firstName }}</p>
-          <p>{{ shipping.lastName }}</p>
-          <p>{{ shipping.streetAddress }}</p>
-          <p>{{ shipping.apartmentNumber }}</p>
-          <p>{{ shipping.city }}</p>
-          <p>{{ shipping.state }}</p>
-          <p>{{ shipping.zipCode }}</p>
-          <p>{{ shipping.country }}</p>
-          <p>{{ shipping.phoneNumber }}</p>
+          <p>{{ billingAddress.firstname }}</p>
+          <p>{{ billingAddress.lastname }}</p>
+          <p>{{ billingAddress.street[2] }}</p>
+          <p>{{ billingAddress.street[0] }}</p>
+          <p>{{ billingAddress.city }}</p>
+          <p>{{ billingAddress.region }}</p>
+          <p>{{ billingAddress.postcode }}</p>
+          <p>{{ billingAddress.country_id }}</p>
+          <p>{{ billingAddress.telephone }}</p>
         </div>
       </div>
       <p class="details-title mt10">SHIPPING METHOD</p>
-      <p v-if="shipping.shippingMethod === 'flatrate'" class="single-detail pt15">DPD Courier</p>
+      <!-- <p v-if="shipping.shippingMethod === 'flatrate'" class="single-detail pt15">DPD Courier</p>
+      <p v-else class="single-detail pt15">DPD Courier</p> -->
+      <p class="single-detail pt15">DPD Courier</p>
     </div>
-    <div class="payment-details details pt20 pb15">
+    <div class="payment-details pt20 pb15">
       <p class="section-header">PAYMENT</p>
       <p class="details-title mt15">PAYMENT ADDRESS</p>
       <p
+        class="single-detail pt15"
+      >
+        Address is the same as shipping
+      </p>
+      <!-- <p
         v-if="shipping.apartmentNumber === payment.apartmentNumber"
         class="single-detail pt15"
       >
@@ -77,11 +84,11 @@
           <p>{{ payment.country }}</p>
           <p>{{ payment.phoneNumber }}</p>
         </div>
-      </div>
+      </div> -->
       <p class="details-title mt10">PAYMENT METHOD</p>
-      <p v-if="payment.paymentMethod === 'checkmo'" class="single-detail pt15">Check / Money Order</p>
-      <p v-else-if="payment.paymentMethod === 'cashondelivery'" class="single-detail pt15">Cash on delivery</p>
-      <p v-else class="single-detail pt15">{{ payment.paymentMethod }}</p>
+      <p v-if="paymentMethod === 'checkmo'" class="single-detail pt15">Check / Money Order</p>
+      <p v-else-if="paymentMethod === 'cashondelivery'" class="single-detail pt15">Cash on delivery</p>
+      <p v-else class="single-detail pt15">{{ paymentMethod }}</p>
     </div>
   </div>
 </template>
@@ -89,25 +96,20 @@
 <script>
 export default {
   props: {
-    personalDetails: {
+    order: {
       type: Object,
       required: true,
-      default: null
-    },
-    shipping: {
-      type: Object,
-      required: true,
-      default: null
-    },
-    payment: {
-      type: Object,
-      required: false,
       default: null
     },
     billingAddress: {
       type: Object,
-      required: false,
+      required: true,
       default: null
+    },
+    paymentMethod: {
+      type: String,
+      required: true,
+      default: 'checkmo'
     }
   }
 }
@@ -141,6 +143,10 @@ export default {
   }
 
   .col-xs-6 p, .single-detail {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding-bottom: 5px;
     font-weight: normal;
     font-size: 14px;

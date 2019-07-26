@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-menu fixed mw-100 bg-cl-secondary">
-    <div class="row outermost brdr-bottom-1 brdr-cl-bg-secondary">
+    <div class="row outermost">
       <div class="col-xs bg-cl-primary" v-if="submenu.depth">
         <sub-btn type="back" class="bg-cl-transparent brdr-none" />
       </div>

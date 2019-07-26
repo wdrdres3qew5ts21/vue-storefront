@@ -41,21 +41,12 @@ export const UserSingleOrder = {
       })
     },
     fetchProductImage() {
-      console.log("-------------- WTF Dude ! ---------------")
+      this.$store.state.product.order_history_images = []
       this.order.items.forEach( async (item) => {
         let parentSku = ( item.sku.indexOf('-') >= 0)? item.sku.substr(0, item.sku.indexOf('-')) : item.sku
-        console.log(item)
-        console.log("child sku : "+item.childSku)
-        console.log("---------")
         await this.$store.dispatch('product/fetchAsync', { parentSku: parentSku, childSku: item.sku})
-        console.log("---- current image -----")
-        console.log(this.$store.getters["product/productCurrent"].image )
-        // this.$store.state.product.order_history_images.push(this.$store.state.product.current.image)
         this.$store.state.product.order_history_images.push(this.$store.state.product)
-
       })
-      console.log("-------------- After Insert Dude ! ---------------")
-      console.log(this.$store.state.product.order_history_images)
     }
   }
 }

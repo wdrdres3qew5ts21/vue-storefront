@@ -27,83 +27,19 @@
       </div>
     </div>
     <!-- My order body -->
-    <div class="row fs16 mb35">
-      <div class="col-xs-12 h4">
-        <table class="brdr-1 brdr-cl-bg-secondary">
-          <thead>
-            <tr>
-              <th class="serif lh20">{{ $t('Product Name') }}</th>
-              <th class="serif lh20">{{ $t('SKU') }}</th>
-              <th class="serif lh20">{{ $t('Price') }}</th>
-              <th class="serif lh20">{{ $t('Qty') }}</th>
-              <th class="serif lh20">{{ $t('Subtotal') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="brdr-top-1 brdr-cl-bg-secondary" v-for="item in skipGrouped(order.items)" :key="item.item_id">
-              <td class="fs-medium lh25" :data-th="$t('Product Name')">{{ item.name }}</td>
-              <td class="fs-medium lh25" :data-th="$t('SKU')">{{ item.sku }}</td>
-              <td class="fs-medium lh25" :data-th="$t('Price')">{{ item.price_incl_tax | price }}</td>
-              <td class="fs-medium lh25 align-right" :data-th="$t('Qty')">{{ item.qty_ordered }}</td>
-              <td class="fs-medium lh25" :data-th="$t('Subtotal')">{{ item.row_total_incl_tax | price }}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr class="brdr-top-1 brdr-cl-bg-secondary">
-              <td colspan="4" class="align-right">{{ $t('Subtotal') }}</td>
-              <td>{{ order.subtotal | price }}</td>
-            </tr>
-            <tr>
-              <td colspan="4" class="align-right">{{ $t('Shipping') }}</td>
-              <td>{{ order.shipping_amount | price }}</td>
-            </tr>
-            <tr>
-              <td colspan="4" class="align-right">{{ $t('Tax') }}</td>
-              <td>{{ order.tax_amount + order.discount_tax_compensation_amount | price }}</td>
-            </tr>
-            <tr v-if="order.discount_amount">
-              <td colspan="4" class="align-right">{{ $t('Discount') }}</td>
-              <td>{{ order.discount_amount | price }}</td>
-            </tr>
-            <tr>
-              <td colspan="4" class="align-right">{{ $t('Grand total') }}</td>
-              <td>{{ order.grand_total | price }}</td>
-            </tr>
-          </tfoot>
-        </table>
+    <div class="row">
+      <div class="col-xs-12">
+        <product :items="skipGrouped(order.items)" :images="orderHistoryImages"/>
       </div>
     </div>
-    <div class="row fs16 mb35">
-      <div class="col-xs-12 h4">
-        <h4>{{ $t('Order informations') }}</h4>
-        <div class="row">
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Shipping address') }}</h5>
-            <!-- <address>
-              <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
-              <p>{{ shippingAddress.street[0] }} {{ shippingAddress.street[1] }}</p>
-              <p>{{ shippingAddress.postcode }} {{ shippingAddress.city }}</p>
-              <p>{{ shippingAddress.country }}</p>
-            </address> -->
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Shipping method') }}</h5>
-            <p>{{ order.shipping_description }}</p>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Billing address') }}</h5>
-            <address>
-              <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
-              <p>{{ billingAddress.street[0] }} {{ billingAddress.street[1] }}</p>
-              <p>{{ billingAddress.postcode }} {{ billingAddress.city }}</p>
-              <p>{{ billingAddress.country }}</p>
-            </address>
-          </div>
-          <div class="col-sm-6 col-md-3">
-            <h5>{{ $t('Payment method') }}</h5>
-            <p>{{ paymentMethod }}</p>
-          </div>
-        </div>
+    <div class="row fs16">
+      <div class="col-xs-12">
+        <!-- Need to Add Shipping Address (Currently Bug). Edit OrderSummary after solve bug -->
+        <order-summary
+          :order="order"
+          :billing-address="billingAddress"
+          :payment-method="paymentMethod"
+        />
       </div>
     </div>
   </div>
@@ -111,8 +47,14 @@
 
 <script>
 import MyOrder from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyOrder'
+import OrderSummary from 'sellsuki/components/core/blocks/MyAccount/OrderSummary'
+import Product from 'sellsuki/components/core/blocks/MyAccount/Product'
 
 export default {
+  components: {
+    OrderSummary,
+    Product
+  },
   mixins: [MyOrder],
   mounted () {
     this.fetchProductImage()
