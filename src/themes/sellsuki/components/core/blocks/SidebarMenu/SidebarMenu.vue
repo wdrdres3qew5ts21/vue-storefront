@@ -216,11 +216,13 @@ a, button {
 }
 
 .outermost {
+  border-bottom: 1px solid #EEEEEE;
   align-items: center;
   background: white;
 }
 
 .sidebar-menu {
+  z-index: 4;
   height: 100vh;
   width: 350px;
   overflow: hidden;

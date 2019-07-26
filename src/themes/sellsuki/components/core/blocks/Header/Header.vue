@@ -134,7 +134,7 @@ $color-icon-hover: color(secondary, $colors-background);
     height: 54px;
     top: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     background: none;
     border-bottom: 1px solid #EEEEEE;
     transition: top 0.2s ease-in-out;
@@ -143,7 +143,6 @@ $color-icon-hover: color(secondary, $colors-background);
     }
     @media (max-width: 767px) {
       background: white;
-      z-index: 5;
     }
   }
 }
